@@ -97,6 +97,21 @@ def change_user_password(
     return {"ok": True}
 
 
+@router.post("/setup")
+def setup_owner(payload: schemas.UserCreate, db: Session = Depends(get_db)):
+    """Create the first owner account. Only works if no users exist."""
+    if db.query(models.User).count() > 0:
+        raise HTTPException(status_code=400, detail="Setup already done. Owner already exists.")
+    owner = models.User(
+        username=payload.username,
+        password_hash=hash_password(payload.password),
+        role=models.UserRole.owner
+    )
+    db.add(owner)
+    db.commit()
+    return {"ok": True, "message": f"Owner '{payload.username}' created successfully!"}
+
+
 @router.post("/login", response_model=schemas.Token)
 def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
