@@ -2,7 +2,7 @@ services:
   - type: web
     name: mangotrack
     env: python
-    buildCommand: "pip install -r requirements.txt && cd mango-frontend && npm install && npm run build && cp -r dist ../ && cd .."
+    buildCommand: "pip install -r requirements.txt && python seed_manager.py && cd mango-frontend && npm install && npm run build && cp -r dist ../ && cd .."
     startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: DATABASE_URL
