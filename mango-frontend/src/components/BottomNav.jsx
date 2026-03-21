@@ -10,9 +10,13 @@ export default function BottomNav() {
 
   const ownerNav = [
     { to: '/dashboard',      icon: '🏠', label: 'Home' },
-    { to: '/team',           icon: '👥', label: 'Team' },
+    { to: '/purchases',      icon: '🛒', label: 'Purchase' },
+    { to: '/create-sale',    icon: '➕', label: 'New Sale' },
     { to: '/all-sales',      icon: '🥭', label: 'Sales' },
+    { to: '/parties',        icon: '🏭', label: 'Parties' },
+    { to: '/truck-payments', icon: '🚚', label: 'Trucks' },
     { to: '/stock',          icon: '📦', label: 'Stock' },
+    { to: '/team',           icon: '👥', label: 'Team' },
     { to: '/settings',       icon: '⚙️', label: 'Settings' },
   ]
 
@@ -108,7 +112,7 @@ export default function BottomNav() {
           </NavLink>
 
           {/* Quick action: New Sale (manager & employee) */}
-          {(user?.role === 'manager' || user?.role === 'employee') && (
+          {(user?.role === 'manager' || user?.role === 'employee' || user?.role === 'owner') && (
             <NavLink
               to="/create-sale"
               className={({ isActive: a }) =>
