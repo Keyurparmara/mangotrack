@@ -27,8 +27,8 @@ export default function SaleDetail() {
         const s = sRes.value?.data
         if (!s) { setError('Sale not found'); return }
         setSale(s)
-        const cats = cRes.value?.data || []
-        const boxes = bRes.value?.data || []
+        const cats = Array.isArray(cRes.value?.data) ? cRes.value.data : []
+        const boxes = Array.isArray(bRes.value?.data) ? bRes.value.data : []
         if (s.mango_category_id) setCat(cats.find(c => c.id === s.mango_category_id))
         if (s.box_type_id) setBox(boxes.find(b => b.id === s.box_type_id))
       } catch { setError('Could not load sale') }

@@ -34,7 +34,7 @@ export default function TruckPayments() {
   const load = () => {
     setLoading(true)
     truckPaymentAPI.list()
-      .then(r => setPayments(r.data || []))
+      .then(r => setPayments(Array.isArray(r.data) ? r.data : []))
       .catch(() => toast.error('Failed to load truck payments'))
       .finally(() => setLoading(false))
   }

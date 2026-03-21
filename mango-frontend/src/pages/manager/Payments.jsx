@@ -23,8 +23,8 @@ export default function Payments() {
     setLoading(true)
     try {
       const [pRes, sRes] = await Promise.allSettled([paymentAPI.list(), salesAPI.list()])
-      setPayments(pRes.value?.data || [])
-      setSales(sRes.value?.data || [])
+      setPayments(Array.isArray(pRes.value?.data) ? pRes.value.data : [])
+      setSales(Array.isArray(sRes.value?.data) ? sRes.value.data : [])
     } finally { setLoading(false) }
   }
 

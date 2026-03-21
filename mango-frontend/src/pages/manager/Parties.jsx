@@ -21,7 +21,7 @@ export default function Parties() {
 
   useEffect(() => {
     partyAPI.list()
-      .then(r => setParties(r.data || []))
+      .then(r => setParties(Array.isArray(r.data) ? r.data : []))
       .catch(() => toast.error('Failed to load parties'))
       .finally(() => setLoading(false))
   }, [])

@@ -30,15 +30,15 @@ export default function CreateSale() {
   useEffect(() => {
     Promise.allSettled([categoryAPI.list(), boxTypeAPI.list(), stockAPI.getMango(), stockAPI.getBoxes()])
       .then(([cRes, bRes, sRes, bsRes]) => {
-        setCategories(cRes.value?.data || [])
-        setBoxTypes(bRes.value?.data || [])
+        setCategories(Array.isArray(cRes.value?.data) ? cRes.value.data : [])
+        setBoxTypes(Array.isArray(bRes.value?.data) ? bRes.value.data : [])
         const map = {}
-        ;(sRes.value?.data || []).forEach(s => {
+        ;(Array.isArray(sRes.value?.data) ? sRes.value.data : []).forEach(s => {
           map[`${s.mango_category_id}_${s.size}`] = s.available
         })
         setStockMap(map)
         const bmap = {}
-        ;(bsRes.value?.data || []).forEach(b => {
+        ;(Array.isArray(bsRes.value?.data) ? bsRes.value.data : []).forEach(b => {
           bmap[b.box_type_id] = b.available
         })
         setBoxStockMap(bmap)

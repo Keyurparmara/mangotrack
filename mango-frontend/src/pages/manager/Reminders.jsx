@@ -16,7 +16,7 @@ export default function Reminders() {
     setLoading(true)
     try {
       const res = await reminderAPI.list()
-      setReminders(res.data || [])
+      setReminders(Array.isArray(res.data) ? res.data : [])
     } finally { setLoading(false) }
   }
 

@@ -37,9 +37,9 @@ export default function Purchases() {
       const [pRes, cRes, bRes] = await Promise.allSettled([
         purchaseAPI.list(), categoryAPI.list(), boxTypeAPI.list()
       ])
-      setPurchases(pRes.value?.data || [])
-      setCategories(cRes.value?.data || [])
-      setBoxTypes(bRes.value?.data || [])
+      setPurchases(Array.isArray(pRes.value?.data) ? pRes.value.data : [])
+      setCategories(Array.isArray(cRes.value?.data) ? cRes.value.data : [])
+      setBoxTypes(Array.isArray(bRes.value?.data) ? bRes.value.data : [])
     } finally {
       setLoading(false)
     }

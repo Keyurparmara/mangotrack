@@ -23,8 +23,8 @@ export default function Stock() {
     try {
       const [sRes, cRes, bRes] = await Promise.allSettled([stockAPI.get(), categoryAPI.list(), boxTypeAPI.list()])
       setStock(sRes.value?.data || { mango: [], empty_boxes: [] })
-      setCategories(cRes.value?.data || [])
-      setBoxTypes(bRes.value?.data || [])
+      setCategories(Array.isArray(cRes.value?.data) ? cRes.value.data : [])
+      setBoxTypes(Array.isArray(bRes.value?.data) ? bRes.value.data : [])
     } finally {
       setLoading(false)
     }

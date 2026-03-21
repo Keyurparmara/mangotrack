@@ -36,8 +36,8 @@ export default function PurchaseDetail() {
         boxTypeAPI.list(),
       ])
       setPurchase(pRes.value?.data)
-      const cm = {}; (cRes.value?.data || []).forEach(c => { cm[c.id] = c }); setCatMap(cm)
-      const bm = {}; (bRes.value?.data || []).forEach(b => { bm[b.id] = b }); setBoxMap(bm)
+      const cm = {}; (Array.isArray(cRes.value?.data) ? cRes.value.data : []).forEach(c => { cm[c.id] = c }); setCatMap(cm)
+      const bm = {}; (Array.isArray(bRes.value?.data) ? bRes.value.data : []).forEach(b => { bm[b.id] = b }); setBoxMap(bm)
 
       // Load payment record if exists
       try {

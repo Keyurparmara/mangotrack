@@ -32,10 +32,10 @@ export default function Team() {
         authAPI.getTeam(),
         salesAPI.list()
       ])
-      setMembers(teamRes.data || [])
+      setMembers(Array.isArray(teamRes.data) ? teamRes.data : [])
       // Compute per-employee stats
       const stats = {}
-      for (const s of (salesRes.data || [])) {
+      for (const s of (Array.isArray(salesRes.data) ? salesRes.data : [])) {
         if (!stats[s.employee_id]) stats[s.employee_id] = { count: 0, total: 0 }
         stats[s.employee_id].count += 1
         stats[s.employee_id].total += s.total_amount || 0
