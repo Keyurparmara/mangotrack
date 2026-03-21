@@ -1,4 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="40" fill="#16a34a"/>
-  <text x="96" y="130" font-size="110" text-anchor="middle" font-family="serif">🥭</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#14532d"/>
+    </linearGradient>
+    <linearGradient id="mango" x1="20%" y1="10%" x2="75%" y2="90%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="55%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+
+  <!-- Mango body -->
+  <path d="M 256 100 C 345 100, 408 175, 402 278 C 396 378, 330 445, 256 445 C 182 445, 116 378, 110 278 C 104 175, 167 100, 256 100 Z"
+    fill="url(#mango)"/>
+
+  <!-- Shine highlight on mango -->
+  <ellipse cx="206" cy="225" rx="34" ry="78" fill="rgba(255,255,255,0.28)" transform="rotate(-18 206 225)"/>
+
+  <!-- Stem -->
+  <rect x="248" y="52" width="16" height="58" rx="8" fill="#92400e"/>
+
+  <!-- Right leaf -->
+  <path d="M 264 78 C 305 28, 372 22, 378 62 C 348 48, 298 62, 264 78 Z" fill="#15803d"/>
+  <!-- Left leaf -->
+  <path d="M 248 78 C 208 28, 142 24, 138 64 C 168 50, 218 64, 248 78 Z" fill="#16a34a"/>
 </svg>

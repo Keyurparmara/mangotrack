@@ -39,7 +39,7 @@ export default function Login() {
         <div className="w-20 h-20 bg-white/20 rounded-3xl flex items-center justify-center text-5xl mb-6 shadow-lg">
           🥭
         </div>
-        <h1 className="text-3xl font-extrabold text-white mb-2">MangoTrack</h1>
+        <h1 className="text-3xl font-extrabold text-white mb-2">Aazada</h1>
         <p className="text-primary-100 text-sm mb-10">Select your language / ભાષા પસંદ કરો</p>
 
         <div className="w-full max-w-xs space-y-3">
@@ -64,7 +64,7 @@ export default function Login() {
           style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.20)' }}>
           🥭
         </div>
-        <h1 className="text-3xl font-extrabold tracking-tight">MangoTrack</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight">Aazada</h1>
         <p className="text-primary-100 text-sm mt-1 font-medium">
           {isGu ? 'ઇન્વેન્ટ્રી મેનેજમેન્ટ સિસ્ટમ' : 'Inventory Management System'}
         </p>
@@ -124,7 +124,7 @@ export default function Login() {
         </form>
 
         <p className="text-center text-xs text-gray-300 mt-8">
-          MangoTrack v2.0 • by Keyur
+          Aazada v2.0 • by Keyur
         </p>
       </div>
     </div>
