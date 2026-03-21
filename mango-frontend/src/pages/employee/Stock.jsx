@@ -10,7 +10,7 @@ export default function EmployeeStock() {
 
   useEffect(() => {
     stockAPI.get()
-      .then(res => setStock(res.data || { mango: [], empty_boxes: [] }))
+      .then(res => setStock({ mango: Array.isArray(res.data?.mango) ? res.data.mango : [], empty_boxes: Array.isArray(res.data?.empty_boxes) ? res.data.empty_boxes : [] }))
       .catch(() => {})
       .finally(() => setLoading(false))
   }, [])

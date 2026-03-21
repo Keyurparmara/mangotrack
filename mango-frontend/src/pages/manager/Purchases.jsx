@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { categoryAPI, boxTypeAPI, purchaseAPI } from '../../api/api'
+import { useAuth } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
 import { PageLoader } from '../../components/Spinner'
 import EmptyState from '../../components/EmptyState'
@@ -14,6 +15,7 @@ const emptyMango = { mango_category_id: '', size: '5kg', quantity: '', price_per
 const emptyBox = { box_type_id: '', quantity: '', price_per_unit: '' }
 
 export default function Purchases() {
+  const { user } = useAuth()
   const { fmtDate } = useLanguage()
   const navigate = useNavigate()
   const [step, setStep] = useState('list') // list | create
@@ -104,7 +106,7 @@ export default function Purchases() {
       <div className="page-header">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-primary-100 text-sm">Manager</p>
+            <p className="text-primary-100 text-sm capitalize">{user?.role || 'Manager'}</p>
             <h1 className="text-2xl font-extrabold">Purchases 🛒</h1>
           </div>
           <button onClick={() => setStep(step === 'list' ? 'create' : 'list')}

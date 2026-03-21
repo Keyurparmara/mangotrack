@@ -125,7 +125,7 @@ export default function CreateSale() {
   return (
     <div className="pb-24">
       <div className="page-header">
-        <p className="text-primary-100 text-sm">{user?.role === 'manager' ? 'Manager' : 'Employee'}</p>
+        <p className="text-primary-100 text-sm capitalize">{user?.role || 'Employee'}</p>
         <h1 className="text-2xl font-extrabold">New Sale 🥭</h1>
         <p className="text-primary-100 text-xs mt-1">Stock will be deducted automatically</p>
       </div>

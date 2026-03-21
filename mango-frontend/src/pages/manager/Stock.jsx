@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { stockAPI, categoryAPI, boxTypeAPI } from '../../api/api'
+import { useAuth } from '../../context/AuthContext'
 import { PageLoader } from '../../components/Spinner'
 import EmptyState from '../../components/EmptyState'
 import toast from 'react-hot-toast'
 
 export default function Stock() {
+  const { user } = useAuth()
   const [stock, setStock] = useState({ mango: [], empty_boxes: [] })
   const [categories, setCategories] = useState([])
   const [boxTypes, setBoxTypes] = useState([])
@@ -22,7 +24,7 @@ export default function Stock() {
     setLoading(true)
     try {
       const [sRes, cRes, bRes] = await Promise.allSettled([stockAPI.get(), categoryAPI.list(), boxTypeAPI.list()])
-      setStock(sRes.value?.data || { mango: [], empty_boxes: [] })
+      const sd = sRes.value?.data; setStock({ mango: Array.isArray(sd?.mango) ? sd.mango : [], empty_boxes: Array.isArray(sd?.empty_boxes) ? sd.empty_boxes : [] })
       setCategories(Array.isArray(cRes.value?.data) ? cRes.value.data : [])
       setBoxTypes(Array.isArray(bRes.value?.data) ? bRes.value.data : [])
     } finally {
@@ -63,7 +65,7 @@ export default function Stock() {
   return (
     <div className="pb-24">
       <div className="page-header">
-        <p className="text-primary-100 text-sm">Manager</p>
+        <p className="text-primary-100 text-sm capitalize">{user?.role || 'Manager'}</p>
         <h1 className="text-2xl font-extrabold">Stock 📦</h1>
         <p className="text-primary-100 text-xs mt-1">Live inventory — purchase minus sales</p>
       </div>

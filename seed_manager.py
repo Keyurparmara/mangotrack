@@ -28,7 +28,22 @@ try:
     else:
         print(f"ℹ️  Owner 'owner1' already exists (ID: {owner.id})")
 
-    # 2. Create manager 'keyurm' if not exists
+    # 2. Create owner 'prashant' if not exists
+    prashant = db.query(models.User).filter(models.User.username == 'prashant').first()
+    if not prashant:
+        prashant = models.User(
+            username='prashant',
+            password_hash=hash_password('prashant123'),
+            role=models.UserRole.owner
+        )
+        db.add(prashant)
+        db.commit()
+        db.refresh(prashant)
+        print(f"✅ Owner 'prashant' created (ID: {prashant.id})")
+    else:
+        print(f"ℹ️  Owner 'prashant' already exists (ID: {prashant.id})")
+
+    # 3. Create manager 'keyurm' if not exists
     manager = db.query(models.User).filter(models.User.username == 'keyurm').first()
     if not manager:
         manager = models.User(
@@ -44,7 +59,7 @@ try:
     else:
         print(f"ℹ️  Manager 'keyurm' already exists (ID: {manager.id})")
 
-    # 3. Create mango category if not exists
+    # 4. Create mango category if not exists
     cat = db.query(models.MangoCategory).filter(models.MangoCategory.name == 'Kesar').first()
     if not cat:
         cat = models.MangoCategory(name='Kesar', category_number=1, description='Premium Kesar')
@@ -55,7 +70,7 @@ try:
     else:
         print(f"ℹ️  Category 'Kesar' already exists (ID: {cat.id})")
 
-    # 4. Create box type if not exists
+    # 5. Create box type if not exists
     bt = db.query(models.BoxType).filter(models.BoxType.brand_name == 'Standard').first()
     if not bt:
         bt = models.BoxType(brand_name='Standard', size=models.MangoSize.kg10, box_weight=models.BoxWeight.g400)
@@ -66,7 +81,7 @@ try:
     else:
         print(f"ℹ️  Box type 'Standard' already exists (ID: {bt.id})")
 
-    # 5. Create sample purchase ONLY if no purchases exist yet
+    # 6. Create sample purchase ONLY if no purchases exist yet
     existing_purchase = db.query(models.Purchase).filter(models.Purchase.created_by == manager.id).first()
     if not existing_purchase:
         purchase = models.Purchase(
@@ -92,7 +107,7 @@ try:
         db.commit()
         print(f"✅ Sample purchase created (ID: {purchase.id}) — 200 boxes Kesar 10kg")
 
-        # 6. Create 2 sample sales
+        # 7. Create 2 sample sales
         for i, (customer, qty, price) in enumerate([('Mahesh Bhai', 50, 1100), ('Suresh Traders', 30, 1050)]):
             sale = models.Sale(
                 employee_id=manager.id,
@@ -115,8 +130,9 @@ try:
         print(f"ℹ️  Sample data already exists — skipping purchase/sales creation")
 
     print("\n🎉 Done!")
-    print("   Login as: owner1 / owner123  (owner)")
-    print("   Login as: keyurm / keyur1234  (manager with sample data)")
+    print("   Login as: owner1 / owner123      (owner)")
+    print("   Login as: prashant / prashant123  (owner)")
+    print("   Login as: keyurm / keyur1234      (manager with sample data)")
 
 except Exception as e:
     db.rollback()

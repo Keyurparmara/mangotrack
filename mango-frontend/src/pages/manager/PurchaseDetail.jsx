@@ -267,10 +267,10 @@ export default function PurchaseDetail() {
               </p>
 
               {/* Transaction history */}
-              {payment.transactions.length > 0 && (
+              {(payment.transactions?.length > 0) && (
                 <div className="bg-green-50 rounded-xl p-3 space-y-1.5">
                   <p className="text-xs font-bold text-green-800">Payment History</p>
-                  {payment.transactions.map(t => (
+                  {(payment.transactions || []).map(t => (
                     <div key={t.id} className="flex justify-between text-xs text-green-700">
                       <span>{fmtDate(t.paid_at)}{t.notes ? ` — ${t.notes}` : ''}</span>
                       <span className="font-bold">{fmtMoney(t.amount)}</span>

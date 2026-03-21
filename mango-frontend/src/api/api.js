@@ -51,16 +51,16 @@ export const boxTypeAPI = {
 
 // ─── Purchases ───────────────────────────────────────────────────────────────
 export const purchaseAPI = {
-  create: (data) => api.post('/purchases', data),
-  list: () => api.get('/purchases'),
+  create: (data) => api.post('/purchases/', data),
+  list: () => api.get('/purchases/'),
   get: (id) => api.get(`/purchases/${id}`),
 }
 
 // ─── Sales ───────────────────────────────────────────────────────────────────
 export const salesAPI = {
-  create: (data) => api.post('/sales', data),
-  list: (employee_id) => api.get('/sales', { params: employee_id ? { employee_id } : {} }),
-  getMySales: () => api.get('/sales'),
+  create: (data) => api.post('/sales/', data),
+  list: (employee_id) => api.get('/sales/', { params: employee_id ? { employee_id } : {} }),
+  getMySales: () => api.get('/sales/'),
   get: (id) => api.get(`/sales/${id}`),
 }
 
@@ -73,31 +73,31 @@ export const stockAPI = {
 
 // ─── Payments ────────────────────────────────────────────────────────────────
 export const paymentAPI = {
-  create: (data) => api.post('/payments', data),
-  list: () => api.get('/payments'),
+  create: (data) => api.post('/payments/', data),
+  list: () => api.get('/payments/'),
   update: (id, data) => api.put(`/payments/${id}`, data),
 }
 
 // ─── Reminders ───────────────────────────────────────────────────────────────
 export const reminderAPI = {
-  list: () => api.get('/reminders'),
+  list: () => api.get('/reminders/'),
   markDone: (id) => api.put(`/reminders/${id}/done`),
 }
 
 // ─── Purchase Payments ───────────────────────────────────────────────────────
 export const purchasePaymentAPI = {
-  create: (data) => api.post('/purchase-payments', data),
+  create: (data) => api.post('/purchase-payments/', data),
   getByPurchase: (purchaseId) => api.get(`/purchase-payments/by-purchase/${purchaseId}`),
-  addTransaction: (ppId, data) => api.post(`/purchase-payments/${ppId}/transactions`, data),
-  list: () => api.get('/purchase-payments'),
+  addTransaction: (ppId, data) => api.post(`/purchase-payments/${ppId}/transactions/`, data),
+  list: () => api.get('/purchase-payments/'),
 }
 
 // ─── Truck Payments ──────────────────────────────────────────────────────────
 export const truckPaymentAPI = {
-  create: (data) => api.post('/truck-payments', data),
-  list: () => api.get('/truck-payments'),
+  create: (data) => api.post('/truck-payments/', data),
+  list: () => api.get('/truck-payments/'),
   get: (id) => api.get(`/truck-payments/${id}`),
-  addTransaction: (id, data) => api.post(`/truck-payments/${id}/transactions`, data),
+  addTransaction: (id, data) => api.post(`/truck-payments/${id}/transactions/`, data),
 }
 
 // ─── Parties ─────────────────────────────────────────────────────────────────

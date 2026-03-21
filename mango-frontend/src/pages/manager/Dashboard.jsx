@@ -58,8 +58,8 @@ export default function ManagerDashboard() {
           <div>
             <p className="text-primary-100 text-sm font-medium">Good day,</p>
             <h1 className="text-2xl font-extrabold">{user?.username} 👋</h1>
-            <span className="inline-flex items-center mt-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white">
-              Manager
+            <span className="inline-flex items-center mt-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white capitalize">
+              {user?.role || 'Manager'}
             </span>
           </div>
           <button onClick={handleLogout} className="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center text-xl active:scale-95 transition-all">

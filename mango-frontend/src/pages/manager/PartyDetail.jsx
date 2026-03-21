@@ -98,7 +98,7 @@ export default function PartyDetail() {
       </div>
 
       <div className="px-4 py-4 space-y-4">
-        {data.purchases.map(p => (
+        {(Array.isArray(data.purchases) ? data.purchases : []).map(p => (
           <div key={p.id} className="card space-y-3">
             {/* Purchase header */}
             <div className="flex justify-between items-start">
@@ -116,7 +116,7 @@ export default function PartyDetail() {
 
             {/* Items */}
             <div className="bg-gray-50 rounded-xl p-3 space-y-1.5">
-              {p.items.map(item => (
+              {(p.items || []).map(item => (
                 <div key={item.id} className="flex justify-between text-xs text-gray-700">
                   <span>
                     {item.item_type === 'mango'
@@ -128,7 +128,7 @@ export default function PartyDetail() {
               ))}
               <div className="pt-1 border-t border-gray-200 flex justify-between text-xs font-bold text-gray-900">
                 <span>Total</span>
-                <span>{fmtMoney(p.items.reduce((s, i) => s + i.subtotal, 0))}</span>
+                <span>{fmtMoney((p.items || []).reduce((s, i) => s + i.subtotal, 0))}</span>
               </div>
             </div>
 
@@ -173,10 +173,10 @@ export default function PartyDetail() {
                 </div>
 
                 {/* Payment transactions */}
-                {p.payment.transactions.length > 0 && (
+                {(p.payment.transactions?.length > 0) && (
                   <div className="bg-green-50 rounded-xl p-2 space-y-1">
                     <p className="text-xs font-bold text-green-800 mb-1">Payment History</p>
-                    {p.payment.transactions.map(t => (
+                    {(p.payment.transactions || []).map(t => (
                       <div key={t.id} className="flex justify-between text-xs text-green-700">
                         <span>{fmtDate(t.paid_at)}{t.notes ? ` — ${t.notes}` : ''}</span>
                         <span className="font-bold">{fmtMoney(t.amount)}</span>

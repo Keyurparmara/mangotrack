@@ -39,18 +39,28 @@ def register(
     if not current_user:
         raise HTTPException(status_code=401, detail="Not authenticated")
 
-    # Only owner can create users
-    if current_user.role != models.UserRole.owner:
-        raise HTTPException(status_code=403, detail="Only owner can create users")
+    # Employees cannot create users
+    if current_user.role == models.UserRole.employee:
+        raise HTTPException(status_code=403, detail="Access denied")
 
-    if payload.role == models.UserRole.owner:
+    # Managers can only create employees (under themselves)
+    if current_user.role == models.UserRole.manager:
+        if payload.role != models.UserRole.employee:
+            raise HTTPException(status_code=403, detail="Managers can only create employees")
+
+    # Owners cannot create another owner
+    if current_user.role == models.UserRole.owner and payload.role == models.UserRole.owner:
         raise HTTPException(status_code=400, detail="Cannot create another owner")
 
     existing = db.query(models.User).filter(models.User.username == payload.username).first()
     if existing:
         raise HTTPException(status_code=400, detail="Username already taken")
 
-    parent_id = None
+    # Auto-assign parent: manager's employees go under that manager
+    if current_user.role == models.UserRole.manager:
+        parent_id = current_user.id
+    else:
+        parent_id = None
 
     user = models.User(
         username=payload.username,

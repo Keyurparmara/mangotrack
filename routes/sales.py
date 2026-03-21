@@ -10,17 +10,39 @@ from auth_utils import get_current_user, require_manager
 router = APIRouter(prefix="/sales", tags=["Sales"])
 
 
-def _get_mango_stock(db: Session, mango_category_id: int, size: models.MangoSize) -> int:
-    purchased = db.query(func.coalesce(func.sum(models.PurchaseItem.quantity), 0)).filter(
+def _get_manager_id_for_user(user: models.User, db: Session):
+    """Return the manager_id scope for stock checks. None = global (owner)."""
+    if user.role == models.UserRole.owner:
+        return None
+    if user.role == models.UserRole.manager:
+        return user.id
+    # employee — use their parent manager
+    return user.parent_id  # may be None if employee has no manager
+
+
+def _get_mango_stock(db: Session, mango_category_id: int, size: models.MangoSize,
+                     manager_id=None) -> int:
+    pq = db.query(func.coalesce(func.sum(models.PurchaseItem.quantity), 0)).filter(
         models.PurchaseItem.item_type == models.ItemType.mango,
         models.PurchaseItem.mango_category_id == mango_category_id,
         models.PurchaseItem.size == size
-    ).scalar()
+    )
+    if manager_id is not None:
+        pq = pq.join(models.Purchase, models.PurchaseItem.purchase_id == models.Purchase.id).filter(
+            models.Purchase.created_by == manager_id
+        )
+    purchased = pq.scalar()
 
-    sold = db.query(func.coalesce(func.sum(models.Sale.quantity), 0)).filter(
+    sq = db.query(func.coalesce(func.sum(models.Sale.quantity), 0)).filter(
         models.Sale.mango_category_id == mango_category_id,
         models.Sale.size == size
-    ).scalar()
+    )
+    if manager_id is not None:
+        emp_ids = [e.id for e in db.query(models.User).filter(
+            models.User.parent_id == manager_id
+        ).all()]
+        sq = sq.filter(models.Sale.employee_id.in_([manager_id] + emp_ids))
+    sold = sq.scalar()
 
     return int(purchased) - int(sold)
 
@@ -68,7 +90,8 @@ def create_sale(
         cat = db.query(models.MangoCategory).filter(models.MangoCategory.id == payload.mango_category_id).first()
         if not cat:
             raise HTTPException(status_code=404, detail="Mango category not found")
-        available = _get_mango_stock(db, payload.mango_category_id, payload.size)
+        manager_id = _get_manager_id_for_user(current_user, db)
+        available = _get_mango_stock(db, payload.mango_category_id, payload.size, manager_id)
         if available < payload.quantity:
             raise HTTPException(status_code=400, detail=f"Insufficient stock. Available: {available} boxes, Requested: {payload.quantity} boxes")
 

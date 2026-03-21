@@ -56,7 +56,7 @@ export default function AllSales() {
   return (
     <div className="pb-24">
       <div className="page-header">
-        <p className="text-primary-100 text-sm">Manager</p>
+        <p className="text-primary-100 text-sm capitalize">{user?.role || 'Manager'}</p>
         <h1 className="text-2xl font-extrabold">All Sales 🥭</h1>
         <div className="flex gap-3 mt-3 flex-wrap">
           <div className="bg-white/15 rounded-xl px-4 py-2">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { truckPaymentAPI } from '../../api/api'
+import { useAuth } from '../../context/AuthContext'
 import { PageLoader } from '../../components/Spinner'
 import EmptyState from '../../components/EmptyState'
 import toast from 'react-hot-toast'
@@ -18,6 +19,7 @@ const emptyForm = {
 }
 
 export default function TruckPayments() {
+  const { user } = useAuth()
   const { fmtMoney, fmtDate } = useLanguage()
   const [payments, setPayments] = useState([])
   const [loading, setLoading] = useState(true)
@@ -96,7 +98,7 @@ export default function TruckPayments() {
       <div className="page-header">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-primary-100 text-sm">Manager</p>
+            <p className="text-primary-100 text-sm capitalize">{user?.role || 'Manager'}</p>
             <h1 className="text-2xl font-extrabold">Truck Payments</h1>
             <p className="text-primary-100 text-xs mt-1">Driver ko diye pese ka hisab</p>
           </div>
@@ -223,10 +225,10 @@ export default function TruckPayments() {
                     {tp.notes && <p className="text-xs text-gray-500 italic">{tp.notes}</p>}
 
                     {/* Transaction history */}
-                    {tp.transactions.length > 0 && (
+                    {(tp.transactions?.length > 0) && (
                       <div className="bg-green-50 rounded-xl p-2 space-y-1">
                         <p className="text-xs font-bold text-green-800 mb-1">Payment History</p>
-                        {tp.transactions.map(t => (
+                        {(tp.transactions || []).map(t => (
                           <div key={t.id} className="flex justify-between text-xs text-green-700">
                             <span>{fmtDate(t.paid_at)}{t.notes ? ` — ${t.notes}` : ''}</span>
                             <span className="font-bold">{fmtMoney(t.amount)}</span>

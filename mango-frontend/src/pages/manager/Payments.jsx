@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { paymentAPI, salesAPI } from '../../api/api'
+import { useAuth } from '../../context/AuthContext'
 import { PageLoader } from '../../components/Spinner'
 import EmptyState from '../../components/EmptyState'
 import toast from 'react-hot-toast'
 import { useLanguage } from '../../context/LanguageContext'
 
 export default function Payments() {
+  const { user } = useAuth()
   const { fmtMoney, fmtDate } = useLanguage()
   const [payments, setPayments] = useState([])
   const [sales, setSales] = useState([])
@@ -73,7 +75,7 @@ export default function Payments() {
       <div className="page-header">
         <div className="flex justify-between items-start">
           <div>
-            <p className="text-primary-100 text-sm">Manager</p>
+            <p className="text-primary-100 text-sm capitalize">{user?.role || 'Manager'}</p>
             <h1 className="text-2xl font-extrabold">Payments 💳</h1>
           </div>
           <button onClick={() => setShowCreate(!showCreate)}

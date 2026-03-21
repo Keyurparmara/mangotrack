@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { partyAPI } from '../../api/api'
+import { useAuth } from '../../context/AuthContext'
 import { PageLoader } from '../../components/Spinner'
 import EmptyState from '../../components/EmptyState'
 import toast from 'react-hot-toast'
@@ -13,6 +14,7 @@ const statusColor = {
 }
 
 export default function Parties() {
+  const { user } = useAuth()
   const { fmtMoney } = useLanguage()
   const [parties, setParties] = useState([])
   const [loading, setLoading] = useState(true)
@@ -40,7 +42,7 @@ export default function Parties() {
   return (
     <div className="pb-24">
       <div className="page-header">
-        <p className="text-primary-100 text-sm">Manager</p>
+        <p className="text-primary-100 text-sm capitalize">{user?.role || 'Manager'}</p>
         <h1 className="text-2xl font-extrabold">Parties / Suppliers</h1>
         <p className="text-primary-100 text-xs mt-1">Jis se saman liya unka hisab</p>
         {totalOwed > 0 && (

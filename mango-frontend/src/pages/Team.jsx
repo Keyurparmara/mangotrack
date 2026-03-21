@@ -169,7 +169,7 @@ export default function Team() {
             <p className="text-primary-100 text-sm">{isOwner ? 'Owner' : 'Manager'}</p>
             <h1 className="text-2xl font-extrabold">Team 👥</h1>
           </div>
-          {isOwner && (
+          {(isOwner || user?.role === 'manager') && (
             <button
               onClick={() => { setShowForm(!showForm); setForm(initForm) }}
               className="bg-white/20 px-4 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-all">

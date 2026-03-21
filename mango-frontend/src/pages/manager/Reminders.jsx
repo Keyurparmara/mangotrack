@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { reminderAPI } from '../../api/api'
+import { useAuth } from '../../context/AuthContext'
 import { PageLoader } from '../../components/Spinner'
 import EmptyState from '../../components/EmptyState'
 import toast from 'react-hot-toast'
 
 export default function Reminders() {
+  const { user } = useAuth()
   const [reminders, setReminders] = useState([])
   const [loading, setLoading] = useState(true)
   const [marking, setMarking] = useState(null)
@@ -44,7 +46,7 @@ export default function Reminders() {
   return (
     <div className="pb-24">
       <div className="page-header">
-        <p className="text-primary-100 text-sm">Manager</p>
+        <p className="text-primary-100 text-sm capitalize">{user?.role || 'Manager'}</p>
         <h1 className="text-2xl font-extrabold">Reminders 🔔</h1>
         <p className="text-primary-100 text-xs mt-1">1 day before due date</p>
         <div className="mt-3 flex gap-3">
