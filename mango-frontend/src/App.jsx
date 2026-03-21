@@ -6,6 +6,7 @@ import BottomNav from './components/BottomNav'
 import ProtectedRoute from './components/ProtectedRoute'
 
 import Login from './pages/Login'
+import Setup from './pages/Setup'
 import Profile from './pages/Profile'
 import Demo from './pages/Demo'
 import Settings from './pages/Settings'
@@ -45,6 +46,7 @@ function AppRoutes() {
       <Routes>
         {/* Public */}
         <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
+        <Route path="/setup" element={<Setup />} />
         <Route path="/demo"  element={<Demo />} />
         <Route path="/" element={<Navigate to={user ? '/dashboard' : '/login'} replace />} />
 
