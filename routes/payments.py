@@ -109,7 +109,9 @@ def list_payments(
             models.User.parent_id == current_user.id
         ).all()]
         all_ids = [current_user.id] + emp_ids
-        q = q.join(models.Sale).filter(models.Sale.employee_id.in_(all_ids))
+        q = q.join(models.Sale, models.Payment.sale_id == models.Sale.id).filter(
+            models.Sale.employee_id.in_(all_ids)
+        )
     return q.all()
 
 

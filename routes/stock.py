@@ -26,9 +26,11 @@ def _build_mango_stock(db: Session, manager_id=None, sale_emp_ids=None) -> List[
         models.PurchaseItem.mango_category_id,
         models.PurchaseItem.size,
         func.sum(models.PurchaseItem.quantity).label("total")
-    ).join(models.Purchase).filter(models.PurchaseItem.item_type == models.ItemType.mango)
+    ).filter(models.PurchaseItem.item_type == models.ItemType.mango)
     if manager_id is not None:
-        pq = pq.filter(models.Purchase.created_by == manager_id)
+        pq = pq.join(models.Purchase, models.PurchaseItem.purchase_id == models.Purchase.id).filter(
+            models.Purchase.created_by == manager_id
+        )
     pq = pq.group_by(models.PurchaseItem.mango_category_id, models.PurchaseItem.size).all()
 
     sq = db.query(
@@ -64,9 +66,11 @@ def _build_box_stock(db: Session, manager_id=None) -> List[schemas.BoxStockItem]
     bq = db.query(
         models.PurchaseItem.box_type_id,
         func.sum(models.PurchaseItem.quantity).label("total")
-    ).join(models.Purchase).filter(models.PurchaseItem.item_type == models.ItemType.empty_box)
+    ).filter(models.PurchaseItem.item_type == models.ItemType.empty_box)
     if manager_id is not None:
-        bq = bq.filter(models.Purchase.created_by == manager_id)
+        bq = bq.join(models.Purchase, models.PurchaseItem.purchase_id == models.Purchase.id).filter(
+            models.Purchase.created_by == manager_id
+        )
     bq = bq.group_by(models.PurchaseItem.box_type_id).all()
 
     box_types = {bt.id: bt for bt in db.query(models.BoxType).all()}
