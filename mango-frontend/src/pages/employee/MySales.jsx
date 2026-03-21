@@ -17,18 +17,18 @@ export default function MySales() {
     const load = async () => {
       try {
         const [sRes, cRes] = await Promise.allSettled([salesAPI.getMySales(), categoryAPI.list()])
-        setSales(sRes.value?.data || [])
+        setSales(Array.isArray(sRes.value?.data) ? sRes.value.data : [])
         const catMap = {}
-        ;(cRes.value?.data || []).forEach(c => { catMap[c.id] = c })
+        ;(Array.isArray(cRes.value?.data) ? cRes.value.data : []).forEach(c => { catMap[c.id] = c })
         setCategories(catMap)
       } finally { setLoading(false) }
     }
     load()
   }, [])
 
-  const filtered = sales.filter(s =>
-    s.city.toLowerCase().includes(search.toLowerCase()) ||
-    s.vehicle_number.toLowerCase().includes(search.toLowerCase()) ||
+  const filtered = (Array.isArray(sales) ? sales : []).filter(s =>
+    (s.city || '').toLowerCase().includes(search.toLowerCase()) ||
+    (s.vehicle_number || '').toLowerCase().includes(search.toLowerCase()) ||
     String(s.id).includes(search)
   )
 

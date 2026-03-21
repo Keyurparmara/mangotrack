@@ -15,7 +15,7 @@ export default function EmployeeDashboard() {
 
   useEffect(() => {
     salesAPI.getMySales()
-      .then(r => setSales(r.data || []))
+      .then(r => setSales(Array.isArray(r.data) ? r.data : []))
       .catch(() => setSales([]))
       .finally(() => setLoading(false))
   }, [])

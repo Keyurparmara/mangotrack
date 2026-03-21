@@ -23,18 +23,22 @@ export default function ManagerDashboard() {
           categoryAPI.list(),
         ])
 
-        const stock = stockRes.value?.data || { mango: [], empty_boxes: [] }
-        const sales = salesRes.value?.data || []
-        const payments = payRes.value?.data || []
-        const cats = catRes.value?.data || []
+        const stockData = stockRes.value?.data
+        const mango = Array.isArray(stockData?.mango) ? stockData.mango : []
+        const emptyBoxes = Array.isArray(stockData?.empty_boxes) ? stockData.empty_boxes : []
+        const sales = Array.isArray(salesRes.value?.data) ? salesRes.value.data : []
+        const payments = Array.isArray(payRes.value?.data) ? payRes.value.data : []
+        const cats = Array.isArray(catRes.value?.data) ? catRes.value.data : []
 
-        const totalMango = stock.mango.reduce((s, i) => s + i.available, 0)
-        const totalBoxes = stock.empty_boxes.reduce((s, i) => s + i.available, 0)
+        const totalMango = mango.reduce((s, i) => s + i.available, 0)
+        const totalBoxes = emptyBoxes.reduce((s, i) => s + i.available, 0)
         const totalSalesAmt = sales.reduce((s, i) => s + i.total_amount, 0)
         const pending = payments.filter(p => p.status !== 'paid')
         const pendingAmt = pending.reduce((s, p) => s + p.remaining_amount, 0)
 
         setData({ totalMango, totalBoxes, totalSales: sales.length, totalSalesAmt, pending: pending.length, pendingAmt, cats: cats.length, payments })
+      } catch {
+        // data stays null, handled in JSX with optional chaining
       } finally {
         setLoading(false)
       }

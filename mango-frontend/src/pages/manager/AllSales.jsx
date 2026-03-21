@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { salesAPI, categoryAPI } from '../../api/api'
+import { salesAPI, categoryAPI, boxTypeAPI } from '../../api/api'
 import { useAuth } from '../../context/AuthContext'
 import { PageLoader } from '../../components/Spinner'
 import { useLanguage } from '../../context/LanguageContext'
@@ -20,13 +20,13 @@ export default function AllSales() {
   useEffect(() => {
     const load = async () => {
       try {
-        const [sRes, cRes, bRes] = await Promise.allSettled([salesAPI.list(), categoryAPI.list(), import('../../api/api').then(m => m.boxTypeAPI.list())])
-        setSales(sRes.value?.data || [])
+        const [sRes, cRes, bRes] = await Promise.allSettled([salesAPI.list(), categoryAPI.list(), boxTypeAPI.list()])
+        setSales(Array.isArray(sRes.value?.data) ? sRes.value.data : [])
         const catMap = {}
-        ;(cRes.value?.data || []).forEach(c => { catMap[c.id] = c })
+        ;(Array.isArray(cRes.value?.data) ? cRes.value.data : []).forEach(c => { catMap[c.id] = c })
         setCategories(catMap)
         const boxMap = {}
-        ;(bRes.value?.data || []).forEach(b => { boxMap[b.id] = b })
+        ;(Array.isArray(bRes.value?.data) ? bRes.value.data : []).forEach(b => { boxMap[b.id] = b })
         setBoxTypes(boxMap)
       } finally { setLoading(false) }
     }
@@ -35,7 +35,7 @@ export default function AllSales() {
 
   // Unique employees for filter tabs
   const empMap = {}
-  sales.forEach(s => { if (s.employee_id) empMap[s.employee_id] = s.employee_username || `Emp #${s.employee_id}` })
+  ;(Array.isArray(sales) ? sales : []).forEach(s => { if (s.employee_id) empMap[s.employee_id] = s.employee_username || `Emp #${s.employee_id}` })
 
   const filtered = sales.filter(s => {
     const matchEmp = empFilter === 'all' || String(s.employee_id) === empFilter
