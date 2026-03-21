@@ -1,0 +1,473 @@
+INFO:     Will watch for changes in these directories: ['C:\\Users\\PARMAR KEYUR\\Desktop\\aazada']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [28404] using WatchFiles
+INFO:     Started server process [26796]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:55720 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55506 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57165 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55720 - "OPTIONS /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57904 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:57904 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:55506 - "OPTIONS /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55506 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57165 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55720 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57904 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57165 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55720 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65281 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60483 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56628 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65281 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60282 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56628 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65281 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60483 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53681 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53681 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54862 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50261 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53681 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54862 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50261 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53681 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55205 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58784 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51071 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58034 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56493 - "OPTIONS /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64998 - "OPTIONS /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58034 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:58034 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:58034 - "OPTIONS /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56493 - "OPTIONS /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58784 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64998 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56493 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58784 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64998 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58034 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52247 - "OPTIONS /parties HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53677 - "OPTIONS /parties HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52247 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52247 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52247 - "OPTIONS /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53677 - "OPTIONS /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52247 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52247 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53011 - "OPTIONS /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59408 - "OPTIONS /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53011 - "GET /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53011 - "GET /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60009 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60009 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61310 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61310 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61310 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61310 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60009 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64482 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60009 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61310 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64482 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61310 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50107 - "OPTIONS /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61417 - "OPTIONS /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63882 - "OPTIONS /payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51719 - "OPTIONS /payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56640 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63882 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56640 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63882 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56640 - "OPTIONS /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63882 - "OPTIONS /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61417 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56640 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51719 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61417 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63882 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51719 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54185 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54185 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "OPTIONS /truck-payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "GET /truck-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54185 - "GET /truck-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54185 - "OPTIONS /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59924 - "OPTIONS /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59924 - "GET /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59924 - "GET /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56442 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56442 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56442 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56442 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57490 - "GET /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57490 - "GET /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61157 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61157 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52030 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63628 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62008 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52030 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61157 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62008 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62008 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:62008 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:62008 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62008 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53529 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61957 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61780 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53529 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61957 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61780 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53529 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61957 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61957 - "GET /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61957 - "GET /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61957 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61957 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61957 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61957 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61957 - "GET /truck-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61957 - "GET /truck-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53529 - "GET /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53529 - "GET /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53529 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53529 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53529 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53529 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52347 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56922 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52347 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56922 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:55921 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53529 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52347 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60155 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55921 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52347 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60155 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53529 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61370 - "OPTIONS /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51616 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59738 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61370 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51616 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59738 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61370 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52158 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52158 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52810 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58531 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65020 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58531 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52810 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52158 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64421 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57079 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64421 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57079 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60860 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60860 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60860 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60860 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64432 - "OPTIONS /purchases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49750 - "OPTIONS /purchases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49750 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:49750 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:64432 - "OPTIONS /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49750 - "OPTIONS /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57886 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57254 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57254 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57886 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52876 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52876 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64746 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:64746 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61456 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59239 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54851 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61456 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59239 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54851 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63932 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63932 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:55861 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62528 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55861 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59910 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62528 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59910 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50114 - "OPTIONS /purchases/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53057 - "OPTIONS /purchases/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56885 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53670 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53057 - "GET /purchases/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56885 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53670 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53057 - "GET /purchases/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53057 - "OPTIONS /purchase-payments/by-purchase/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53670 - "OPTIONS /purchase-payments/by-purchase/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53670 - "GET /purchase-payments/by-purchase/1 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53670 - "GET /purchase-payments/by-purchase/1 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62534 - "OPTIONS /purchase-payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62534 - "POST /purchase-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50422 - "OPTIONS /purchase-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62534 - "POST /purchase-payments/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:65229 - "OPTIONS /purchase-payments/1/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65229 - "POST /purchase-payments/1/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64284 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:64284 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:58317 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60037 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60037 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58317 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "OPTIONS /purchases/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58317 - "OPTIONS /purchases/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60037 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /purchases/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64284 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58317 - "OPTIONS /purchase-payments/by-purchase/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60037 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /purchases/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64284 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58317 - "GET /purchase-payments/by-purchase/2 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58317 - "GET /purchase-payments/by-purchase/2 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52020 - "POST /purchase-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52020 - "POST /purchase-payments/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:51225 - "OPTIONS /purchase-payments/2/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51225 - "POST /purchase-payments/2/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53924 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60705 - "OPTIONS /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52461 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52332 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52332 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60705 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53924 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52461 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53924 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52332 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52461 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51597 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63932 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58289 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51597 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63932 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58289 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58289 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63932 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63932 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63932 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50174 - "OPTIONS /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63932 - "OPTIONS /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58289 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51597 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50174 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58289 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51597 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63932 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53233 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53233 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53233 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53233 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59608 - "GET /truck-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:59608 - "GET /truck-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:59608 - "GET /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59608 - "GET /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59608 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53942 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53387 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53942 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59608 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53387 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64069 - "OPTIONS /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55112 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49188 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64069 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58508 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64472 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55712 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58508 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64472 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55712 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54756 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58816 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49282 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51225 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64020 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61168 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50205 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "OPTIONS /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61396 - "OPTIONS /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59150 - "OPTIONS /stock/boxes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50205 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59150 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61396 - "GET /stock/boxes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59150 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61396 - "GET /stock/boxes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50205 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57798 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49974 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50638 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49756 - "GET /stock/boxes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64872 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49668 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53820 - "GET /stock/boxes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54234 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61577 - "OPTIONS /purchases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61577 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53065 - "GET /purchases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50243 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61577 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53065 - "OPTIONS /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52199 - "OPTIONS /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61577 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50243 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53065 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53065 - "GET /purchases/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "GET /stock/boxes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64361 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63191 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64361 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63191 - "GET /stock/mango HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "GET /stock/boxes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63191 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:64361 - "OPTIONS /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64361 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63191 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /box-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "OPTIONS /truck-payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "OPTIONS /truck-payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /truck-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61236 - "GET /truck-payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:57872 - "OPTIONS /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "OPTIONS /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /truck-payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "OPTIONS /parties HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "OPTIONS /parties HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:57872 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:57872 - "OPTIONS /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "OPTIONS /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61236 - "OPTIONS /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "OPTIONS /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "GET /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57872 - "GET /parties/Patel%20Mango%20Traders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49956 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:49956 - "GET /parties HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:49956 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49956 - "GET /parties/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49956 - "OPTIONS /parties/natu%20bhai HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52960 - "OPTIONS /parties/natu%20bhai HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49956 - "GET /parties/natu%20bhai HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49956 - "GET /parties/natu%20bhai HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62912 - "OPTIONS /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61681 - "OPTIONS /payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52943 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:62912 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52943 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:49689 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:63668 - "OPTIONS /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61739 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62912 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63668 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61681 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61739 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49689 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63668 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61681 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51717 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:62797 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51717 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:62797 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:55165 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62945 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62818 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51717 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55165 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62797 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62945 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51717 - "GET /sales/ HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'routes\auth.py'. Reloading...
+INFO:     127.0.0.1:58258 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54530 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54530 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:58258 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56724 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55933 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64630 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58259 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56724 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64630 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64630 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56724 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63147 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:49317 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:59750 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:49317 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:55200 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63147 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59750 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56925 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63147 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55200 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59750 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56925 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59939 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:56271 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59939 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53973 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:61923 - "OPTIONS /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59939 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53410 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56271 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53973 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61923 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53410 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53973 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56271 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61923 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59153 - "OPTIONS /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "OPTIONS /sales HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63481 - "OPTIONS /payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:59153 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:49667 - "GET /sales HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:59153 - "GET /payments HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52402 - "OPTIONS /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59153 - "OPTIONS /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62289 - "OPTIONS /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52402 - "OPTIONS /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56156 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63481 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56156 - "GET /mango-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62289 - "GET /payments/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63481 - "GET /stock/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52402 - "GET /sales/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62289 - "GET /payments/ HTTP/1.1" 200 OK

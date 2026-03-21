@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  overscroll-behavior: none;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: #f8fafc;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.04),
+    0 8px 24px rgba(0,0,0,0.08),
+    0 32px 80px rgba(0,0,0,0.12);
+}
+
+@layer components {
+
+  /* ── Buttons ─────────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply w-full font-bold py-3.5 px-6 rounded-2xl
+           active:scale-[0.97] transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed text-base
+           text-white relative overflow-hidden;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 60%, #15803d 100%);
+    box-shadow: 0 2px 8px rgba(22,163,74,0.35), 0 6px 20px rgba(22,163,74,0.20), inset 0 1px 0 rgba(255,255,255,0.20);
+  }
+  .btn-primary:active {
+    box-shadow: 0 1px 4px rgba(22,163,74,0.25), inset 0 2px 4px rgba(0,0,0,0.10);
+  }
+
+  .btn-secondary {
+    @apply w-full bg-white text-primary-700 font-semibold py-3.5 px-6 rounded-2xl
+           active:scale-[0.97] transition-all duration-150 border border-primary-200 text-base;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .btn-danger {
+    @apply bg-red-50 text-red-600 font-semibold py-2 px-4 rounded-xl
+           active:scale-95 transition-all duration-150 border border-red-200 text-sm;
+  }
+
+  .btn-sm {
+    @apply text-white font-semibold py-2 px-4 rounded-xl
+           active:scale-95 transition-all text-sm;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 2px 6px rgba(22,163,74,0.30);
+  }
+
+  /* ── Inputs ──────────────────────────────────────────────────────────── */
+  .input-field {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm
+           focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent
+           placeholder-gray-400 transition-all;
+    background: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.8);
+  }
+  .input-field:focus {
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.04), 0 0 0 3px rgba(22,163,74,0.15);
+  }
+
+  .select-field {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm
+           focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent
+           transition-all;
+    background: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.8);
+  }
+
+  /* ── Cards ───────────────────────────────────────────────────────────── */
+  .card {
+    @apply bg-white rounded-2xl p-4 border border-gray-100;
+    box-shadow:
+      0 1px 2px rgba(0,0,0,0.04),
+      0 4px 12px rgba(0,0,0,0.06),
+      0 1px 0 rgba(255,255,255,0.9) inset;
+  }
+
+  .card-elevated {
+    @apply bg-white rounded-2xl p-4;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.06),
+      0 8px 24px rgba(0,0,0,0.08),
+      0 1px 0 rgba(255,255,255,1) inset;
+    border: 1px solid rgba(255,255,255,0.8);
+  }
+
+  /* ── Labels ──────────────────────────────────────────────────────────── */
+  .label {
+    @apply block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide;
+  }
+
+  /* ── Page Header ─────────────────────────────────────────────────────── */
+  .page-header {
+    @apply text-white px-5 pt-12 pb-6 relative overflow-hidden;
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 50%, #14532d 100%);
+    box-shadow: 0 4px 20px rgba(21,128,61,0.35), 0 1px 0 rgba(255,255,255,0.10) inset;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -30px;
+    width: 140px; height: 140px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* ── Badges ──────────────────────────────────────────────────────────── */
+  .badge-pending { @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700; }
+  .badge-partial { @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700; }
+  .badge-paid    { @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700; }
+
+  .section-title { @apply text-base font-bold text-gray-800 mb-3; }
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
+
+/* ── Safe area ───────────────────────────────────────────────────────── */
+.pb-safe { padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+
+/* ── Shimmer animation ───────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
