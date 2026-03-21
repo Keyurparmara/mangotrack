@@ -13,14 +13,15 @@ router = APIRouter(prefix="/parties", tags=["Parties"])
 @router.get("/", response_model=List[schemas.PartySummary])
 def list_parties(
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_manager)
+    current_user: models.User = Depends(require_manager)
 ):
     """Aggregate purchases by company (party/supplier)."""
-    purchases = (
-        db.query(models.Purchase)
-        .options(joinedload(models.Purchase.items), joinedload(models.Purchase.payment))
-        .all()
+    q = db.query(models.Purchase).options(
+        joinedload(models.Purchase.items), joinedload(models.Purchase.payment)
     )
+    if current_user.role == models.UserRole.manager:
+        q = q.filter(models.Purchase.created_by == current_user.id)
+    purchases = q.all()
 
     party_map = {}
     for p in purchases:
@@ -51,20 +52,17 @@ def list_parties(
 def get_party_detail(
     company_name: str,
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_manager)
+    current_user: models.User = Depends(require_manager)
 ):
     """All purchases from a specific company with payment details."""
-    purchases = (
-        db.query(models.Purchase)
-        .options(
-            joinedload(models.Purchase.items).joinedload(models.PurchaseItem.mango_category),
-            joinedload(models.Purchase.items).joinedload(models.PurchaseItem.box_type),
-            joinedload(models.Purchase.payment).joinedload(models.PurchasePayment.transactions),
-        )
-        .filter(func.lower(models.Purchase.company_name) == company_name.lower())
-        .order_by(models.Purchase.purchase_datetime.desc())
-        .all()
-    )
+    q = db.query(models.Purchase).options(
+        joinedload(models.Purchase.items).joinedload(models.PurchaseItem.mango_category),
+        joinedload(models.Purchase.items).joinedload(models.PurchaseItem.box_type),
+        joinedload(models.Purchase.payment).joinedload(models.PurchasePayment.transactions),
+    ).filter(func.lower(models.Purchase.company_name) == company_name.lower())
+    if current_user.role == models.UserRole.manager:
+        q = q.filter(models.Purchase.created_by == current_user.id)
+    purchases = q.order_by(models.Purchase.purchase_datetime.desc()).all()
 
     result = []
     total_paid = 0.0

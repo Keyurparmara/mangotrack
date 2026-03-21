@@ -97,11 +97,12 @@ def add_transaction(
 @router.get("/", response_model=List[schemas.TruckPaymentOut])
 def list_truck_payments(
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_manager)
+    current_user: models.User = Depends(require_manager)
 ):
-    return db.query(models.TruckPayment).order_by(
-        models.TruckPayment.created_at.desc()
-    ).all()
+    q = db.query(models.TruckPayment).order_by(models.TruckPayment.created_at.desc())
+    if current_user.role == models.UserRole.manager:
+        q = q.filter(models.TruckPayment.created_by == current_user.id)
+    return q.all()
 
 
 @router.get("/{tp_id}", response_model=schemas.TruckPaymentOut)

@@ -103,6 +103,13 @@ def create_sale(
     return _sale_to_dict(sale)
 
 
+def _manager_sale_ids(manager_id: int, db: Session):
+    emp_ids = [e.id for e in db.query(models.User).filter(
+        models.User.parent_id == manager_id
+    ).all()]
+    return [manager_id] + emp_ids
+
+
 @router.get("/", response_model=List[schemas.SaleOut])
 def list_sales(
     employee_id: Optional[int] = Query(None),
@@ -113,7 +120,13 @@ def list_sales(
 
     if current_user.role == models.UserRole.employee:
         query = query.filter(models.Sale.employee_id == current_user.id)
-    elif employee_id:
+    elif current_user.role == models.UserRole.manager:
+        all_ids = _manager_sale_ids(current_user.id, db)
+        if employee_id and employee_id in all_ids:
+            query = query.filter(models.Sale.employee_id == employee_id)
+        else:
+            query = query.filter(models.Sale.employee_id.in_(all_ids))
+    elif employee_id:  # owner
         query = query.filter(models.Sale.employee_id == employee_id)
 
     sales = query.order_by(models.Sale.created_at.desc()).all()

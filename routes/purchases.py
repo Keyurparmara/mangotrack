@@ -101,18 +101,23 @@ def add_purchase_item(
 @router.get("/", response_model=List[schemas.PurchaseOut])
 def list_purchases(
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_manager)
+    current_user: models.User = Depends(require_manager)
 ):
-    return db.query(models.Purchase).order_by(models.Purchase.created_at.desc()).all()
+    q = db.query(models.Purchase).order_by(models.Purchase.created_at.desc())
+    if current_user.role == models.UserRole.manager:
+        q = q.filter(models.Purchase.created_by == current_user.id)
+    return q.all()
 
 
 @router.get("/{purchase_id}", response_model=schemas.PurchaseOut)
 def get_purchase(
     purchase_id: int,
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_manager)
+    current_user: models.User = Depends(require_manager)
 ):
     purchase = db.query(models.Purchase).filter(models.Purchase.id == purchase_id).first()
     if not purchase:
         raise HTTPException(status_code=404, detail="Purchase not found")
+    if current_user.role == models.UserRole.manager and purchase.created_by != current_user.id:
+        raise HTTPException(status_code=403, detail="Access denied")
     return purchase

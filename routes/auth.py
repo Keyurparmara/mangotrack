@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from database import get_db
 import models
 import schemas
-from auth_utils import hash_password, verify_password, create_access_token, get_current_user
+from auth_utils import hash_password, verify_password, create_access_token, get_current_user, get_optional_user
 from pydantic import BaseModel
 
 
@@ -19,31 +19,38 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 def register(
     payload: schemas.UserCreate,
     db: Session = Depends(get_db),
-    current_user: models.User = Depends(get_current_user)
+    current_user: Optional[models.User] = Depends(get_optional_user)
 ):
-    # Owner can create managers and employees
-    # Manager can only create employees
-    if current_user.role == models.UserRole.owner:
-        if payload.role == models.UserRole.owner:
-            raise HTTPException(status_code=400, detail="Cannot create another owner")
-    elif current_user.role == models.UserRole.manager:
-        if payload.role != models.UserRole.employee:
-            raise HTTPException(status_code=403, detail="Manager can only create employees")
-    else:
-        raise HTTPException(status_code=403, detail="Access denied")
+    # First time setup: allow owner creation if no users exist
+    if db.query(models.User).count() == 0:
+        if payload.role != models.UserRole.owner:
+            raise HTTPException(status_code=400, detail="First user must be owner")
+        user = models.User(
+            username=payload.username,
+            password_hash=hash_password(payload.password),
+            role=models.UserRole.owner
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        return user
+
+    # Normal flow: auth required
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    # Only owner can create users
+    if current_user.role != models.UserRole.owner:
+        raise HTTPException(status_code=403, detail="Only owner can create users")
+
+    if payload.role == models.UserRole.owner:
+        raise HTTPException(status_code=400, detail="Cannot create another owner")
 
     existing = db.query(models.User).filter(models.User.username == payload.username).first()
     if existing:
         raise HTTPException(status_code=400, detail="Username already taken")
 
-    # Manager always creates employees under themselves
     parent_id = None
-    if current_user.role == models.UserRole.manager:
-        parent_id = current_user.id
-    elif current_user.role == models.UserRole.owner and payload.role == models.UserRole.employee:
-        # Owner creating an employee — requires specifying which manager
-        # For now owner can create employees without a manager parent
-        parent_id = None
 
     user = models.User(
         username=payload.username,

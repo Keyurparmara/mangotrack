@@ -101,9 +101,16 @@ def update_payment(
 @router.get("/", response_model=List[schemas.PaymentOut])
 def list_payments(
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_manager)
+    current_user: models.User = Depends(require_manager)
 ):
-    return db.query(models.Payment).order_by(models.Payment.created_at.desc()).all()
+    q = db.query(models.Payment).order_by(models.Payment.created_at.desc())
+    if current_user.role == models.UserRole.manager:
+        emp_ids = [e.id for e in db.query(models.User).filter(
+            models.User.parent_id == current_user.id
+        ).all()]
+        all_ids = [current_user.id] + emp_ids
+        q = q.join(models.Sale).filter(models.Sale.employee_id.in_(all_ids))
+    return q.all()
 
 
 @router.get("/{payment_id}", response_model=schemas.PaymentOut)
