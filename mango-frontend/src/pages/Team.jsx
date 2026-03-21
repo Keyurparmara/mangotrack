@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { authAPI } from '../api/api'
+import { authAPI, salesAPI } from '../api/api'
 import { useAuth } from '../context/AuthContext'
 import { PageLoader } from '../components/Spinner'
 import { useLanguage } from '../context/LanguageContext'
@@ -9,7 +9,7 @@ const initForm = { username: '', password: '', role: 'employee' }
 
 export default function Team() {
   const { user } = useAuth()
-  const { fmtDate } = useLanguage()
+  const { fmtDate, fmtMoney } = useLanguage()
   const isOwner = user?.role === 'owner'
 
   const [members, setMembers] = useState([])
@@ -17,6 +17,7 @@ export default function Team() {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(initForm)
   const [saving, setSaving] = useState(false)
+  const [empStats, setEmpStats] = useState({}) // { empId: { count, total } }
 
   // Password change state
   const [changePwdFor, setChangePwdFor] = useState(null) // user id
@@ -27,8 +28,19 @@ export default function Team() {
   const load = async () => {
     setLoading(true)
     try {
-      const res = await authAPI.getTeam()
-      setMembers(res.data || [])
+      const [teamRes, salesRes] = await Promise.all([
+        authAPI.getTeam(),
+        salesAPI.list()
+      ])
+      setMembers(teamRes.data || [])
+      // Compute per-employee stats
+      const stats = {}
+      for (const s of (salesRes.data || [])) {
+        if (!stats[s.employee_id]) stats[s.employee_id] = { count: 0, total: 0 }
+        stats[s.employee_id].count += 1
+        stats[s.employee_id].total += s.total_amount || 0
+      }
+      setEmpStats(stats)
     } catch {
       toast.error('Failed to load team')
     } finally {
@@ -267,7 +279,7 @@ export default function Team() {
           </div>
         )}
 
-        {/* Manager view: own employees */}
+        {/* Manager view: own employees with activity */}
         {!showForm && !isOwner && (
           <div className="space-y-2">
             <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Meri Team</p>
@@ -275,22 +287,33 @@ export default function Team() {
               <div className="card text-center py-8">
                 <p className="text-3xl mb-2">👷</p>
                 <p className="font-bold text-gray-700">Koi employee nahi abhi</p>
-                <p className="text-xs text-gray-400 mt-1">+ Add se employee banao</p>
+                <p className="text-xs text-gray-400 mt-1">Owner se employee banwao</p>
               </div>
             ) : (
-              employees.map(e => (
-                <div key={e.id} className="card flex items-center gap-3">
-                  <span className="w-9 h-9 bg-mango-50 rounded-full flex items-center justify-center text-base">👷</span>
-                  <div className="flex-1">
-                    <p className="font-bold text-gray-900">{e.username}</p>
-                    <p className="text-xs text-gray-400">Employee • ID: {e.id}</p>
+              employees.map(e => {
+                const st = empStats[e.id] || { count: 0, total: 0 }
+                return (
+                  <div key={e.id} className="card space-y-2">
+                    <div className="flex items-center gap-3">
+                      <span className="w-9 h-9 bg-mango-50 rounded-full flex items-center justify-center text-base">👷</span>
+                      <div className="flex-1">
+                        <p className="font-bold text-gray-900">{e.username}</p>
+                        <p className="text-xs text-gray-400">Employee • Since {fmtDate(e.created_at)}</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 pt-1 border-t border-gray-50">
+                      <div className="bg-mango-50 rounded-xl p-2 text-center">
+                        <p className="text-lg font-extrabold text-mango-600">{st.count}</p>
+                        <p className="text-[10px] text-mango-500 font-semibold">Total Sales</p>
+                      </div>
+                      <div className="bg-primary-50 rounded-xl p-2 text-center">
+                        <p className="text-lg font-extrabold text-primary-700">{fmtMoney(st.total)}</p>
+                        <p className="text-[10px] text-primary-500 font-semibold">Total Revenue</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-xs text-gray-400">Since</p>
-                    <p className="text-xs font-semibold text-gray-600">{fmtDate(e.created_at)}</p>
-                  </div>
-                </div>
-              ))
+                )
+              })
             )}
           </div>
         )}
