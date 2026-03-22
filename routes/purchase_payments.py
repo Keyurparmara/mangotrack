@@ -102,11 +102,14 @@ def add_transaction(
 @router.get("/", response_model=List[schemas.PurchasePaymentOut])
 def list_purchase_payments(
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_manager)
+    current_user: models.User = Depends(require_manager)
 ):
-    return db.query(models.PurchasePayment).order_by(
-        models.PurchasePayment.created_at.desc()
-    ).all()
+    q = db.query(models.PurchasePayment).order_by(models.PurchasePayment.created_at.desc())
+    if current_user.role == models.UserRole.manager:
+        q = q.join(models.Purchase, models.PurchasePayment.purchase_id == models.Purchase.id).filter(
+            models.Purchase.created_by == current_user.id
+        )
+    return q.all()
 
 
 @router.get("/{pp_id}", response_model=schemas.PurchasePaymentOut)
@@ -125,11 +128,15 @@ def get_purchase_payment(
 def get_by_purchase(
     purchase_id: int,
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_manager)
+    current_user: models.User = Depends(require_manager)
 ):
     pp = db.query(models.PurchasePayment).filter(
         models.PurchasePayment.purchase_id == purchase_id
     ).first()
     if not pp:
         raise HTTPException(status_code=404, detail="No payment record for this purchase")
+    if current_user.role == models.UserRole.manager:
+        purchase = db.query(models.Purchase).filter(models.Purchase.id == purchase_id).first()
+        if purchase and purchase.created_by != current_user.id:
+            raise HTTPException(status_code=403, detail="Access denied")
     return pp
