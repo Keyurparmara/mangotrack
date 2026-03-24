@@ -31,6 +31,7 @@ def create_truck_payment(
     tp = models.TruckPayment(
         vehicle_number=payload.vehicle_number,
         driver_name=payload.driver_name,
+        driver_phone=payload.driver_phone,
         destination=payload.destination,
         boxes_count=payload.boxes_count,
         total_freight=payload.total_freight,

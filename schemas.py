@@ -152,11 +152,13 @@ class SaleCreate(BaseModel):
     box_price_per_unit: Optional[float] = Field(None, gt=0)
     customer_name: Optional[str] = None
     customer_village: Optional[str] = None
+    customer_phone: Optional[str] = None
     transport_type: Optional[str] = None
     vehicle_number: str
     city: str
     dispatch_time: datetime
     expected_delivery_time: datetime
+    due_date: Optional[datetime] = None
 
 
 class SaleOut(BaseModel):
@@ -172,6 +174,7 @@ class SaleOut(BaseModel):
     box_price_per_unit: Optional[float] = None
     customer_name: Optional[str] = None
     customer_village: Optional[str] = None
+    customer_phone: Optional[str] = None
     transport_type: Optional[str] = None
     vehicle_number: str
     city: str
@@ -271,6 +274,7 @@ class PurchasePaymentOut(BaseModel):
 class TruckPaymentCreate(BaseModel):
     vehicle_number: str
     driver_name: Optional[str] = None
+    driver_phone: Optional[str] = None
     destination: str
     boxes_count: Optional[int] = None
     total_freight: float = Field(..., gt=0)
@@ -302,6 +306,7 @@ class TruckPaymentOut(BaseModel):
     id: int
     vehicle_number: str
     driver_name: Optional[str]
+    driver_phone: Optional[str] = None
     destination: str
     boxes_count: Optional[int]
     total_freight: float
@@ -349,6 +354,7 @@ class BoxStockItem(BaseModel):
     size: MangoSize
     box_weight: BoxWeight
     purchased: int
+    sold: int = 0
     available: int
 
 

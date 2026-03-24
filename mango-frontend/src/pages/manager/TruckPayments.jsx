@@ -6,6 +6,17 @@ import EmptyState from '../../components/EmptyState'
 import toast from 'react-hot-toast'
 import { useLanguage } from '../../context/LanguageContext'
 
+// Auto-format vehicle number: GJ/32/AH/5940
+function formatVehicle(input) {
+  const v = input.replace(/[^A-Za-z0-9]/g, '').toUpperCase()
+  let result = ''
+  for (let i = 0; i < Math.min(v.length, 10); i++) {
+    if (i === 2 || i === 4 || i === 6) result += '/'
+    result += v[i]
+  }
+  return result
+}
+
 const statusBadge = {
   pending: 'bg-red-50 text-red-600 border-red-200',
   partial: 'bg-amber-50 text-amber-700 border-amber-200',
@@ -13,7 +24,7 @@ const statusBadge = {
 }
 
 const emptyForm = {
-  vehicle_number: '', driver_name: '', destination: '',
+  vehicle_number: '', driver_name: '', driver_phone: '', destination: '',
   boxes_count: '', total_freight: '', paid_amount: '0',
   departure_time: '', arrival_time: '', notes: ''
 }
@@ -52,6 +63,7 @@ export default function TruckPayments() {
       await truckPaymentAPI.create({
         vehicle_number: form.vehicle_number.trim(),
         driver_name: form.driver_name.trim() || null,
+        driver_phone: form.driver_phone.trim() || null,
         destination: form.destination.trim(),
         boxes_count: form.boxes_count ? parseInt(form.boxes_count) : null,
         total_freight: parseFloat(form.total_freight),
@@ -130,12 +142,19 @@ export default function TruckPayments() {
           <div className="card space-y-3">
             <p className="font-bold text-gray-900">Truck Details</p>
             <div>
-              <label className="label">Vehicle Number</label>
-              <input className="input-field" placeholder="e.g. GJ05AB1234" value={form.vehicle_number} onChange={e => set('vehicle_number', e.target.value)} autoCapitalize="characters" />
+              <label className="label">Vehicle Number (e.g. GJ/32/AH/5940)</label>
+              <input className="input-field font-mono tracking-wider" placeholder="GJ/32/AH/5940"
+                value={form.vehicle_number}
+                onChange={e => set('vehicle_number', formatVehicle(e.target.value))}
+                maxLength={13} />
             </div>
             <div>
               <label className="label">Driver Name (Optional)</label>
               <input className="input-field" placeholder="e.g. Ramesh Bhai" value={form.driver_name} onChange={e => set('driver_name', e.target.value)} />
+            </div>
+            <div>
+              <label className="label">Driver Phone (Optional)</label>
+              <input className="input-field" type="tel" placeholder="e.g. 9876543210" value={form.driver_phone} onChange={e => set('driver_phone', e.target.value)} />
             </div>
             <div>
               <label className="label">Destination</label>
@@ -186,10 +205,16 @@ export default function TruckPayments() {
                 <div className="flex justify-between items-start cursor-pointer"
                   onClick={() => setExpanded(expanded === tp.id ? null : tp.id)}>
                   <div>
-                    <p className="font-bold text-gray-900">{tp.vehicle_number}</p>
+                    <p className="font-bold text-gray-900 font-mono">{tp.vehicle_number}</p>
                     <p className="text-xs text-gray-500">
                       {tp.destination}{tp.driver_name ? ` • ${tp.driver_name}` : ''}
                     </p>
+                    {tp.driver_phone && (
+                      <a href={`tel:${tp.driver_phone}`} className="text-xs text-blue-500 font-semibold"
+                        onClick={e => e.stopPropagation()}>
+                        📞 {tp.driver_phone}
+                      </a>
+                    )}
                     {tp.boxes_count && <p className="text-xs text-gray-400">{tp.boxes_count} boxes</p>}
                     <p className="text-xs text-gray-400 mt-0.5">{fmtDate(tp.departure_time, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</p>
                   </div>

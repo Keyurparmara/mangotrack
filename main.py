@@ -3,12 +3,33 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
-from database import engine
+from sqlalchemy import text
+from database import engine, DATABASE_URL
 import models
 from routes import auth, purchases, sales, stock, payments, reminders, categories, purchase_payments, truck_payments, parties
 
 # Create all tables on startup
 models.Base.metadata.create_all(bind=engine)
+
+# Safe column migrations (add new columns without breaking existing data)
+_is_pg = not DATABASE_URL.startswith("sqlite")
+_migrations = [
+    ("ALTER TABLE sales ADD COLUMN{} customer_phone VARCHAR(20)", "sales", "customer_phone"),
+    ("ALTER TABLE truck_payments ADD COLUMN{} driver_phone VARCHAR(20)", "truck_payments", "driver_phone"),
+]
+with engine.connect() as _conn:
+    for _stmt_tpl, _tbl, _col in _migrations:
+        try:
+            if _is_pg:
+                _conn.execute(text(_stmt_tpl.format(" IF NOT EXISTS")))
+            else:
+                # SQLite: check if column exists first
+                cols = [r[1] for r in _conn.execute(text(f"PRAGMA table_info({_tbl})")).fetchall()]
+                if _col not in cols:
+                    _conn.execute(text(_stmt_tpl.format("")))
+            _conn.commit()
+        except Exception:
+            pass
 
 app = FastAPI(
     title="Mango Trading Inventory Management",

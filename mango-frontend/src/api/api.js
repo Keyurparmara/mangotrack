@@ -62,6 +62,7 @@ export const salesAPI = {
   list: (employee_id) => api.get('/sales/', { params: employee_id ? { employee_id } : {} }),
   getMySales: () => api.get('/sales/'),
   get: (id) => api.get(`/sales/${id}`),
+  getCustomers: () => api.get('/sales/customers/'),
 }
 
 // ─── Stock ───────────────────────────────────────────────────────────────────

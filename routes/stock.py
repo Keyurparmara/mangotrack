@@ -62,7 +62,7 @@ def _build_mango_stock(db: Session, manager_id=None, sale_emp_ids=None) -> List[
     return result
 
 
-def _build_box_stock(db: Session, manager_id=None) -> List[schemas.BoxStockItem]:
+def _build_box_stock(db: Session, manager_id=None, sale_emp_ids=None) -> List[schemas.BoxStockItem]:
     bq = db.query(
         models.PurchaseItem.box_type_id,
         func.sum(models.PurchaseItem.quantity).label("total")
@@ -73,19 +73,32 @@ def _build_box_stock(db: Session, manager_id=None) -> List[schemas.BoxStockItem]
         )
     bq = bq.group_by(models.PurchaseItem.box_type_id).all()
 
+    # Subtract boxes sold in sales
+    sq = db.query(
+        models.Sale.box_type_id,
+        func.coalesce(func.sum(models.Sale.box_quantity), 0).label("total")
+    ).filter(models.Sale.box_type_id.isnot(None))
+    if sale_emp_ids is not None:
+        sq = sq.filter(models.Sale.employee_id.in_(sale_emp_ids))
+    sq = sq.group_by(models.Sale.box_type_id).all()
+    sold_map = {r.box_type_id: int(r.total) for r in sq}
+
     box_types = {bt.id: bt for bt in db.query(models.BoxType).all()}
     result = []
     for row in bq:
         bt = box_types.get(row.box_type_id)
         if not bt:
             continue
+        purchased = int(row.total)
+        sold = sold_map.get(row.box_type_id, 0)
         result.append(schemas.BoxStockItem(
             box_type_id=row.box_type_id,
             brand_name=bt.brand_name,
             size=bt.size,
             box_weight=bt.box_weight,
-            purchased=int(row.total),
-            available=int(row.total)
+            purchased=purchased,
+            sold=sold,
+            available=purchased - sold
         ))
     return result
 
@@ -95,7 +108,7 @@ def get_stock(db: Session = Depends(get_db), current_user: models.User = Depends
     mid, sids = _get_scope(current_user, db)
     return schemas.StockResponse(
         mango=_build_mango_stock(db, mid, sids),
-        empty_boxes=_build_box_stock(db, mid)
+        empty_boxes=_build_box_stock(db, mid, sids)
     )
 
 
@@ -107,5 +120,5 @@ def get_mango_stock(db: Session = Depends(get_db), current_user: models.User = D
 
 @router.get("/boxes", response_model=List[schemas.BoxStockItem])
 def get_box_stock(db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    mid, _ = _get_scope(current_user, db)
-    return _build_box_stock(db, mid)
+    mid, sids = _get_scope(current_user, db)
+    return _build_box_stock(db, mid, sids)

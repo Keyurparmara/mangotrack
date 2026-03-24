@@ -137,6 +137,7 @@ class Sale(Base):
     # Customer details
     customer_name = Column(String(150), nullable=True)
     customer_village = Column(String(150), nullable=True)
+    customer_phone = Column(String(20), nullable=True)
     transport_type = Column(String(100), nullable=True)
     # Delivery details
     vehicle_number = Column(String(50), nullable=False)
@@ -217,6 +218,7 @@ class TruckPayment(Base):
     id = Column(Integer, primary_key=True, index=True)
     vehicle_number = Column(String(50), nullable=False)
     driver_name = Column(String(150), nullable=True)
+    driver_phone = Column(String(20), nullable=True)
     destination = Column(String(150), nullable=False)
     boxes_count = Column(Integer, nullable=True)
     total_freight = Column(Float, nullable=False)

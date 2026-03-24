@@ -7,6 +7,16 @@ import { PageLoader } from '../../components/Spinner'
 import EmptyState from '../../components/EmptyState'
 import { useLanguage } from '../../context/LanguageContext'
 
+function formatVehicle(input) {
+  const v = input.replace(/[^A-Za-z0-9]/g, '').toUpperCase()
+  let result = ''
+  for (let i = 0; i < Math.min(v.length, 10); i++) {
+    if (i === 2 || i === 4 || i === 6) result += '/'
+    result += v[i]
+  }
+  return result
+}
+
 const emptyPurchase = {
   city_name: '', company_name: '', vehicle_number: '',
   unload_employee: '', purchase_datetime: '',
@@ -24,6 +34,7 @@ export default function Purchases() {
   const [boxTypes, setBoxTypes] = useState([])
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
+  const [typeFilter, setTypeFilter] = useState('all') // all | mango | box
 
   const [form, setForm] = useState(emptyPurchase)
   const [mangoItems, setMangoItems] = useState([{ ...emptyMango }])
@@ -118,10 +129,27 @@ export default function Purchases() {
 
       {step === 'list' ? (
         <div className="px-4 py-4 space-y-3">
+          {/* Mango / Box filter */}
+          {purchases.length > 0 && (
+            <div className="flex gap-2">
+              {[['all', 'All'], ['mango', '🥭 Mango'], ['box', '📦 Box']].map(([v, label]) => (
+                <button key={v} onClick={() => setTypeFilter(v)}
+                  className={`flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full transition-all ${typeFilter === v ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-500'}`}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
           {purchases.length === 0 ? (
             <EmptyState icon="🛒" title="No purchases yet" subtitle="Tap + New to record a purchase" />
-          ) : (
-            purchases.slice().reverse().map(p => (
+          ) : (() => {
+            const filtered = purchases.filter(p => {
+              if (typeFilter === 'mango') return p.items?.some(i => i.item_type === 'mango')
+              if (typeFilter === 'box') return p.items?.some(i => i.item_type === 'empty_box') && !p.items?.some(i => i.item_type === 'mango')
+              return true
+            })
+            if (filtered.length === 0) return <EmptyState icon="🔍" title="No purchases" subtitle={`No ${typeFilter} purchases found`} />
+            return filtered.slice().reverse().map(p => (
               <div key={p.id} className="card active:scale-[0.98] transition-all cursor-pointer"
                 onClick={() => navigate(`/purchases/${p.id}`)}>
                 <div className="flex justify-between items-start">
@@ -146,7 +174,7 @@ export default function Purchases() {
                 )}
               </div>
             ))
-          )}
+          })()}
         </div>
       ) : (
         <div className="px-4 py-4 space-y-4">
@@ -155,7 +183,7 @@ export default function Purchases() {
             <p className="font-bold text-gray-900 flex items-center gap-2">📋 Purchase Details</p>
             <div><label className="label">City</label><input className="input-field" placeholder="e.g. Surat" value={form.city_name} onChange={e => setForm({ ...form, city_name: e.target.value })} /></div>
             <div><label className="label">Company Name</label><input className="input-field" placeholder="e.g. Patel Traders" value={form.company_name} onChange={e => setForm({ ...form, company_name: e.target.value })} /></div>
-            <div><label className="label">Vehicle Number</label><input className="input-field" placeholder="e.g. GJ05AB1234" value={form.vehicle_number} onChange={e => setForm({ ...form, vehicle_number: e.target.value })} /></div>
+            <div><label className="label">Vehicle Number (e.g. GJ/32/AH/5940)</label><input className="input-field font-mono tracking-wider" placeholder="GJ/32/AH/5940" value={form.vehicle_number} onChange={e => setForm({ ...form, vehicle_number: formatVehicle(e.target.value) })} maxLength={13} /></div>
             <div><label className="label">Unload Employee</label><input className="input-field" placeholder="Employee name" value={form.unload_employee} onChange={e => setForm({ ...form, unload_employee: e.target.value })} /></div>
             <div><label className="label">Date & Time</label><input type="datetime-local" className="input-field" value={form.purchase_datetime} onChange={e => setForm({ ...form, purchase_datetime: e.target.value })} /></div>
           </div>

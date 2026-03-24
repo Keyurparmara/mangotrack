@@ -6,30 +6,41 @@ import toast from 'react-hot-toast'
 import { PageLoader } from '../../components/Spinner'
 import { useLanguage } from '../../context/LanguageContext'
 
+// Auto-format vehicle number: GJ/32/AH/5940
+function formatVehicle(input) {
+  const v = input.replace(/[^A-Za-z0-9]/g, '').toUpperCase()
+  let result = ''
+  for (let i = 0; i < Math.min(v.length, 10); i++) {
+    if (i === 2 || i === 4 || i === 6) result += '/'
+    result += v[i]
+  }
+  return result
+}
+
 const initForm = {
   mango_category_id: '', size: '5kg', quantity: '',
   price_per_box: '', box_type_id: '', box_quantity: '', box_price_per_unit: '',
-  customer_name: '', customer_village: '',
+  customer_name: '', customer_village: '', customer_phone: '',
   transport_type: '', vehicle_number: '', city: '',
-  dispatch_time: '', expected_delivery_time: '',
+  dispatch_time: '', expected_delivery_time: '', due_date: '',
 }
 
 export default function CreateSale() {
   const { fmtMoney } = useLanguage()
   const [categories, setCategories] = useState([])
   const [boxTypes, setBoxTypes] = useState([])
-  const [stockMap, setStockMap] = useState({}) // key: "catId_size" → available count
+  const [stockMap, setStockMap] = useState({})
+  const [boxStockMap, setBoxStockMap] = useState({})
+  const [customers, setCustomers] = useState([]) // for autocomplete
   const [form, setForm] = useState(initForm)
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const navigate = useNavigate()
   const { user } = useAuth()
 
-  const [boxStockMap, setBoxStockMap] = useState({}) // key: box_type_id → available
-
   useEffect(() => {
-    Promise.allSettled([categoryAPI.list(), boxTypeAPI.list(), stockAPI.getMango(), stockAPI.getBoxes()])
-      .then(([cRes, bRes, sRes, bsRes]) => {
+    Promise.allSettled([categoryAPI.list(), boxTypeAPI.list(), stockAPI.getMango(), stockAPI.getBoxes(), salesAPI.getCustomers()])
+      .then(([cRes, bRes, sRes, bsRes, custRes]) => {
         setCategories(Array.isArray(cRes.value?.data) ? cRes.value.data : [])
         setBoxTypes(Array.isArray(bRes.value?.data) ? bRes.value.data : [])
         const map = {}
@@ -42,6 +53,7 @@ export default function CreateSale() {
           bmap[b.box_type_id] = b.available
         })
         setBoxStockMap(bmap)
+        setCustomers(Array.isArray(custRes.value?.data) ? custRes.value.data : [])
       })
       .catch(() => toast.error('Failed to load data'))
       .finally(() => setLoading(false))
@@ -51,6 +63,16 @@ export default function CreateSale() {
   const mangoTotal = (parseFloat(form.quantity) || 0) * (parseFloat(form.price_per_box) || 0)
   const boxTotal   = (parseFloat(form.box_quantity) || 0) * (parseFloat(form.box_price_per_unit) || 0)
   const total = mangoTotal + boxTotal
+
+  // When customer name is selected from autocomplete, fill other fields
+  const handleCustomerSelect = (name) => {
+    const c = customers.find(x => x.customer_name === name)
+    if (c) {
+      set('customer_name', c.customer_name)
+      if (c.customer_village && !form.customer_village) set('customer_village', c.customer_village)
+      if (c.customer_phone && !form.customer_phone) set('customer_phone', c.customer_phone)
+    }
+  }
 
   const validate = () => {
     const hasMango = form.mango_category_id && form.quantity && form.price_per_box
@@ -81,20 +103,22 @@ export default function CreateSale() {
     setSubmitting(true)
     try {
       await salesAPI.create({
-        mango_category_id: parseInt(form.mango_category_id),
+        mango_category_id: form.mango_category_id ? parseInt(form.mango_category_id) : null,
         size: form.size,
-        quantity: parseInt(form.quantity),
-        price_per_box: parseFloat(form.price_per_box),
+        quantity: form.quantity ? parseInt(form.quantity) : null,
+        price_per_box: form.price_per_box ? parseFloat(form.price_per_box) : null,
         box_type_id: form.box_type_id ? parseInt(form.box_type_id) : null,
         box_quantity: form.box_quantity ? parseInt(form.box_quantity) : null,
         box_price_per_unit: form.box_price_per_unit ? parseFloat(form.box_price_per_unit) : null,
         customer_name: form.customer_name.trim() || null,
         customer_village: form.customer_village.trim() || null,
+        customer_phone: form.customer_phone.trim() || null,
         transport_type: form.transport_type.trim() || null,
         vehicle_number: form.vehicle_number.trim(),
         city: form.city.trim(),
         dispatch_time: form.dispatch_time,
         expected_delivery_time: form.expected_delivery_time,
+        due_date: form.due_date || null,
       })
       toast.success('Sale created! 🎉')
       setForm(initForm)
@@ -201,26 +225,25 @@ export default function CreateSale() {
           {/* Stock indicator */}
           {availableStock !== null && (
             <div className={`rounded-xl px-3 py-2 text-xs font-semibold flex items-center gap-2 ${
-              !stockOk
+              availableStock === 0
+                ? 'bg-red-50 text-red-600 border border-red-200'
+                : !stockOk
                 ? 'bg-red-50 text-red-600 border border-red-200'
                 : enteredQty > 0 && availableStock - enteredQty < 10
                 ? 'bg-amber-50 text-amber-700 border border-amber-200'
                 : 'bg-green-50 text-green-700 border border-green-200'
             }`}>
-              <span>{!stockOk ? '❌' : enteredQty > 0 && availableStock - enteredQty < 10 ? '⚠️' : '✅'}</span>
+              <span>{availableStock === 0 ? '❌' : !stockOk ? '❌' : enteredQty > 0 && availableStock - enteredQty < 10 ? '⚠️' : '✅'}</span>
               <span>
-                {!stockOk
-                  ? `Stock nahi hai! Sirf ${availableStock} boxes hain hamare paas`
+                {availableStock === 0
+                  ? 'Is category ka stock khatam — sale nahi ho sakti'
+                  : !stockOk
+                  ? `Stock nahi hai! Sirf ${availableStock} boxes hain`
                   : enteredQty > 0
-                  ? `Stock available: ${availableStock} boxes (${availableStock - enteredQty} bachenge)`
+                  ? `Stock: ${availableStock} boxes (${availableStock - enteredQty} bachenge)`
                   : `Stock available: ${availableStock} boxes`
                 }
               </span>
-            </div>
-          )}
-          {availableStock === 0 && (
-            <div className="bg-red-50 border border-red-200 rounded-xl px-3 py-2 text-xs text-red-600 font-semibold">
-              ❌ Is category ka stock khatam ho gaya hai — sale nahi ho sakti
             </div>
           )}
         </div>
@@ -269,23 +292,25 @@ export default function CreateSale() {
                   <input className="input-field" type="number" placeholder="0.00" value={form.box_price_per_unit} onChange={e => set('box_price_per_unit', e.target.value)} />
                 </div>
               </div>
-
-              {/* Box stock indicator */}
               {availableBoxStock !== null && (
                 <div className={`rounded-xl px-3 py-2 text-xs font-semibold flex items-center gap-2 ${
-                  !boxStockOk
+                  availableBoxStock === 0
+                    ? 'bg-red-50 text-red-600 border border-red-200'
+                    : !boxStockOk
                     ? 'bg-red-50 text-red-600 border border-red-200'
                     : enteredBoxQty > 0 && availableBoxStock - enteredBoxQty < 20
                     ? 'bg-amber-50 text-amber-700 border border-amber-200'
                     : 'bg-green-50 text-green-700 border border-green-200'
                 }`}>
-                  <span>{!boxStockOk ? '❌' : enteredBoxQty > 0 && availableBoxStock - enteredBoxQty < 20 ? '⚠️' : '✅'}</span>
+                  <span>{availableBoxStock === 0 ? '❌' : !boxStockOk ? '❌' : enteredBoxQty > 0 && availableBoxStock - enteredBoxQty < 20 ? '⚠️' : '✅'}</span>
                   <span>
-                    {!boxStockOk
+                    {availableBoxStock === 0
+                      ? 'Box stock khatam!'
+                      : !boxStockOk
                       ? `Box stock nahi! Sirf ${availableBoxStock} pcs hain`
                       : enteredBoxQty > 0
                       ? `Box stock: ${availableBoxStock} pcs (${availableBoxStock - enteredBoxQty} bachenge)`
-                      : `Box stock available: ${availableBoxStock} pcs`
+                      : `Box stock: ${availableBoxStock} pcs`
                     }
                   </span>
                 </div>
@@ -299,13 +324,34 @@ export default function CreateSale() {
           <p className="font-bold text-gray-900">👤 Customer Details</p>
           <div>
             <label className="label">Customer Name (Kisko Becha)</label>
-            <input className="input-field" placeholder="e.g. Ramesh Patel" value={form.customer_name}
-              onChange={e => set('customer_name', e.target.value)} />
+            <input
+              className="input-field" placeholder="e.g. Ramesh Patel"
+              value={form.customer_name}
+              list="customer-names-list"
+              onChange={e => {
+                set('customer_name', e.target.value)
+                handleCustomerSelect(e.target.value)
+              }}
+            />
+            {customers.length > 0 && (
+              <datalist id="customer-names-list">
+                {customers.map((c, i) => (
+                  <option key={i} value={c.customer_name}>
+                    {c.customer_village ? `${c.customer_name} (${c.customer_village})` : c.customer_name}
+                  </option>
+                ))}
+              </datalist>
+            )}
           </div>
           <div>
             <label className="label">Customer Village / City (Kahan Ka)</label>
             <input className="input-field" placeholder="e.g. Navsari, Surat" value={form.customer_village}
               onChange={e => set('customer_village', e.target.value)} />
+          </div>
+          <div>
+            <label className="label">Customer Phone (Optional)</label>
+            <input className="input-field" type="tel" placeholder="e.g. 9876543210" value={form.customer_phone}
+              onChange={e => set('customer_phone', e.target.value)} />
           </div>
           <div>
             <label className="label">Bhejne Ka Tarika (Kese Bheja)</label>
@@ -327,9 +373,14 @@ export default function CreateSale() {
         <div className="card space-y-3">
           <p className="font-bold text-gray-900">🚚 Delivery Details</p>
           <div>
-            <label className="label">Vehicle Number</label>
-            <input className="input-field" placeholder="e.g. GJ05AB1234" value={form.vehicle_number}
-              onChange={e => set('vehicle_number', e.target.value)} autoCapitalize="characters" />
+            <label className="label">Vehicle Number (e.g. GJ/32/AH/5940)</label>
+            <input
+              className="input-field font-mono tracking-wider"
+              placeholder="GJ/32/AH/5940"
+              value={form.vehicle_number}
+              onChange={e => set('vehicle_number', formatVehicle(e.target.value))}
+              maxLength={13}
+            />
           </div>
           <div>
             <label className="label">Destination City</label>
@@ -343,6 +394,21 @@ export default function CreateSale() {
             <label className="label">Expected Delivery</label>
             <input type="datetime-local" className="input-field" value={form.expected_delivery_time} onChange={e => set('expected_delivery_time', e.target.value)} />
           </div>
+        </div>
+
+        {/* Payment Due Date */}
+        <div className="card space-y-3">
+          <p className="font-bold text-gray-900">💰 Payment Due Date (Optional)</p>
+          <p className="text-xs text-gray-400">Agar customer ne abhi payment nahi ki, to due date dalo — auto reminder ban jayega</p>
+          <div>
+            <label className="label">Payment Due Date</label>
+            <input type="datetime-local" className="input-field" value={form.due_date} onChange={e => set('due_date', e.target.value)} />
+          </div>
+          {form.due_date && (
+            <div className="bg-amber-50 rounded-xl px-3 py-2 text-xs text-amber-700 font-semibold">
+              ⏰ 1 din pehle reminder automatic ban jayega: {new Date(new Date(form.due_date) - 86400000).toLocaleDateString('en-IN')}
+            </div>
+          )}
         </div>
 
         <button onClick={handleSubmit} disabled={submitting} className="btn-primary text-lg py-4">
