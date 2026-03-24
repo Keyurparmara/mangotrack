@@ -138,6 +138,7 @@ export default function App() {
       <AuthProvider>
         <BrowserRouter>
           <WarmupGate>
+            <AppRoutes />
           </WarmupGate>
           <Toaster
             position="top-center"
