@@ -4,8 +4,6 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import { LanguageProvider } from './context/LanguageContext'
 import BottomNav from './components/BottomNav'
 import ProtectedRoute from './components/ProtectedRoute'
-import { useEffect, useState } from 'react'
-import api from './api/api'
 
 import Login from './pages/Login'
 import Setup from './pages/Setup'
@@ -36,9 +34,11 @@ function AppRoutes() {
 
   if (!authReady) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-dvh bg-primary-600">
+      <div className="flex flex-col items-center justify-center min-h-dvh bg-primary-600 px-6 text-center">
         <div className="text-5xl animate-bounce mb-3">🥭</div>
-        <p className="text-white text-sm font-medium">Loading...</p>
+        <p className="text-white text-lg font-extrabold mb-1">MangoTrack</p>
+        <p className="text-primary-100 text-sm">App start ho rahi hai...</p>
+        <p className="text-primary-200 text-xs mt-1">Pehli baar 30-60 sec lag sakte hain</p>
       </div>
     )
   }
@@ -88,58 +88,12 @@ function AppRoutes() {
   )
 }
 
-function WarmupGate({ children }) {
-  const [ready, setReady] = useState(false)
-  const [attempt, setAttempt] = useState(0)
-
-  useEffect(() => {
-    let timer
-    const ping = async () => {
-      try {
-        await api.get('/health', { timeout: 8000 })
-        setReady(true)
-      } catch {
-        setAttempt(a => a + 1)
-        timer = setTimeout(ping, 3000)
-      }
-    }
-    ping()
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (!ready) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-dvh bg-primary-600 px-6 text-center">
-        <div className="text-6xl mb-4" style={{ animation: 'bounce 1s infinite' }}>🥭</div>
-        <p className="text-white text-lg font-extrabold mb-1">MangoTrack</p>
-        {attempt === 0 ? (
-          <p className="text-primary-100 text-sm">Loading...</p>
-        ) : (
-          <>
-            <p className="text-white text-sm font-semibold">App warm ho rahi hai...</p>
-            <p className="text-primary-200 text-xs mt-1">Pehli baar thoda time lagta hai (30-60 sec)</p>
-            <div className="mt-4 flex gap-1">
-              {[0,1,2].map(i => (
-                <div key={i} className="w-2 h-2 bg-white/60 rounded-full"
-                  style={{ animation: `bounce 1s ${i * 0.2}s infinite` }} />
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-    )
-  }
-  return children
-}
-
 export default function App() {
   return (
     <LanguageProvider>
       <AuthProvider>
         <BrowserRouter>
-          <WarmupGate>
-            <AppRoutes />
-          </WarmupGate>
+          <AppRoutes />
           <Toaster
             position="top-center"
             toastOptions={{
