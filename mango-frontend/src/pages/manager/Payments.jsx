@@ -77,6 +77,9 @@ export default function Payments() {
   const saleMap = {}
   sales.forEach(s => { saleMap[s.id] = s })
 
+  const usedSaleIds = new Set(payments.map(p => p.sale_id))
+  const availableSales = sales.filter(s => !usedSaleIds.has(s.id))
+
   if (loading) return <PageLoader />
 
   const totalPending = payments.filter(p => p.status !== 'paid').reduce((s, p) => s + p.remaining_amount, 0)
@@ -116,8 +119,8 @@ export default function Payments() {
               <label className="label">Sale Select Karo</label>
               <select className="select-field" value={createForm.sale_id}
                 onChange={e => setCreateForm({ ...createForm, sale_id: e.target.value })}>
-                <option value="">-- Sale choose karo --</option>
-                {sales.map(s => (
+                <option value="">{availableSales.length === 0 ? '-- Sabhi sales me payment record ban chuka hai --' : '-- Sale choose karo --'}</option>
+                {availableSales.map(s => (
                   <option key={s.id} value={s.id}>
                     Sale #{s.id} — ₹{s.total_amount?.toLocaleString()} {s.customer_name ? `(${s.customer_name})` : ''} — {s.city}
                   </option>
