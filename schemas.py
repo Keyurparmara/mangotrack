@@ -196,7 +196,7 @@ class PaymentCreate(BaseModel):
 
 
 class PaymentUpdate(BaseModel):
-    paid_amount: float = Field(..., ge=0)
+    add_amount: float = Field(..., gt=0, description="Amount being paid now (added to existing)")
     due_date: Optional[datetime] = None
 
 

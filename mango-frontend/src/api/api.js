@@ -81,7 +81,7 @@ export const paymentAPI = {
 
 // ─── Reminders ───────────────────────────────────────────────────────────────
 export const reminderAPI = {
-  list: () => api.get('/reminders/'),
+  list: () => api.get('/reminders/all'),   // show ALL pending, not just 2-day window
   markDone: (id) => api.put(`/reminders/${id}/done`),
 }
 

@@ -74,15 +74,16 @@ def update_payment(
     if not payment:
         raise HTTPException(status_code=404, detail="Payment not found")
 
-    if payload.paid_amount > payment.total_amount:
+    new_paid = payment.paid_amount + payload.add_amount
+    if new_paid > payment.total_amount:
         raise HTTPException(
             status_code=400,
-            detail=f"Paid amount cannot exceed total amount {payment.total_amount}"
+            detail=f"Exceeds total. Remaining baki: ₹{payment.remaining_amount:.0f}"
         )
 
-    payment.paid_amount = payload.paid_amount
-    payment.remaining_amount = payment.total_amount - payload.paid_amount
-    payment.status = _compute_status(payload.paid_amount, payment.total_amount)
+    payment.paid_amount = new_paid
+    payment.remaining_amount = payment.total_amount - new_paid
+    payment.status = _compute_status(new_paid, payment.total_amount)
 
     if payload.due_date:
         payment.due_date = payload.due_date
