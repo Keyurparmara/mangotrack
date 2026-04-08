@@ -121,3 +121,24 @@ def get_purchase(
     if current_user.role == models.UserRole.manager and purchase.created_by != current_user.id:
         raise HTTPException(status_code=403, detail="Access denied")
     return purchase
+
+
+@router.delete("/{purchase_id}", status_code=204)
+def delete_purchase(
+    purchase_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(require_manager)
+):
+    purchase = db.query(models.Purchase).filter(models.Purchase.id == purchase_id).first()
+    if not purchase:
+        raise HTTPException(status_code=404, detail="Purchase not found")
+    if current_user.role == models.UserRole.manager and purchase.created_by != current_user.id:
+        raise HTTPException(status_code=403, detail="Access denied")
+    # PurchasePayment has no cascade — delete manually
+    pp = db.query(models.PurchasePayment).filter(
+        models.PurchasePayment.purchase_id == purchase_id
+    ).first()
+    if pp:
+        db.delete(pp)
+    db.delete(purchase)
+    db.commit()

@@ -54,6 +54,7 @@ export const purchaseAPI = {
   create: (data) => api.post('/purchases/', data),
   list: () => api.get('/purchases/'),
   get: (id) => api.get(`/purchases/${id}`),
+  delete: (id) => api.delete(`/purchases/${id}`),
 }
 
 // ─── Sales ───────────────────────────────────────────────────────────────────
@@ -63,6 +64,7 @@ export const salesAPI = {
   getMySales: () => api.get('/sales/'),
   get: (id) => api.get(`/sales/${id}`),
   getCustomers: () => api.get('/sales/customers/'),
+  delete: (id) => api.delete(`/sales/${id}`),
 }
 
 // ─── Stock ───────────────────────────────────────────────────────────────────
@@ -77,6 +79,7 @@ export const paymentAPI = {
   create: (data) => api.post('/payments/', data),
   list: () => api.get('/payments/'),
   update: (id, data) => api.put(`/payments/${id}`, data),
+  delete: (id) => api.delete(`/payments/${id}`),
 }
 
 // ─── Reminders ───────────────────────────────────────────────────────────────
@@ -103,6 +106,6 @@ export const truckPaymentAPI = {
 
 // ─── Parties ─────────────────────────────────────────────────────────────────
 export const partyAPI = {
-  list: () => api.get('/parties'),
+  list: () => api.get('/parties/'),
   get: (name) => api.get(`/parties/${encodeURIComponent(name)}`),
 }

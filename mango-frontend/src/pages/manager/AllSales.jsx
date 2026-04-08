@@ -59,6 +59,18 @@ export default function AllSales() {
   const totalAmt = filtered.reduce((sum, s) => sum + s.total_amount, 0)
   const totalBoxes = filtered.reduce((sum, s) => sum + (s.quantity || 0), 0)
 
+  const handleDeleteSale = async (id) => {
+    if (!window.confirm('Ye sale delete karna chahte ho?')) return
+    try {
+      await salesAPI.delete(id)
+      toast.success('Sale delete ho gaya')
+      setSales(prev => prev.filter(s => s.id !== id))
+      setMenuOpen(null)
+    } catch (err) {
+      toast.error(err.response?.data?.detail || 'Delete failed')
+    }
+  }
+
   const handleAddPayment = async () => {
     if (!payModal || !payForm.due_date) { toast.error('Due date dalo'); return }
     setPaying(true)
@@ -182,6 +194,10 @@ export default function AllSales() {
                     <button className="w-full text-left px-4 py-2.5 text-sm font-semibold text-amber-700 hover:bg-amber-50 flex items-center gap-2"
                       onClick={() => { navigate('/reminders'); setMenuOpen(null) }}>
                       ⏰ Reminders
+                    </button>
+                    <button className="w-full text-left px-4 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50 flex items-center gap-2"
+                      onClick={() => handleDeleteSale(s.id)}>
+                      🗑 Delete Sale
                     </button>
                   </div>
                 )}

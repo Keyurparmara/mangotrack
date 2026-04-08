@@ -56,6 +56,17 @@ export default function Payments() {
     } finally { setSaving(false) }
   }
 
+  const handleDeletePayment = async (id) => {
+    if (!window.confirm('Ye payment record delete karna chahte ho?')) return
+    try {
+      await paymentAPI.delete(id)
+      toast.success('Payment delete ho gaya')
+      setPayments(prev => prev.filter(p => p.id !== id))
+    } catch (err) {
+      toast.error(err.response?.data?.detail || 'Delete failed')
+    }
+  }
+
   const handleCreate = async () => {
     if (!createForm.sale_id || !createForm.due_date) { toast.error('Sale aur due date dalo'); return }
     setSaving(true)
@@ -270,6 +281,11 @@ export default function Payments() {
                     ✅ Pura payment aa gaya!
                   </div>
                 )}
+
+                <button onClick={() => handleDeletePayment(p.id)}
+                  className="mt-2 w-full py-1.5 text-xs text-red-400 hover:text-red-600 font-semibold text-center active:scale-95 transition-all">
+                  🗑 Delete Payment Record
+                </button>
               </div>
             )
           })

@@ -126,3 +126,16 @@ def get_payment(
     if not payment:
         raise HTTPException(status_code=404, detail="Payment not found")
     return payment
+
+
+@router.delete("/{payment_id}", status_code=204)
+def delete_payment(
+    payment_id: int,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(require_manager)
+):
+    payment = db.query(models.Payment).filter(models.Payment.id == payment_id).first()
+    if not payment:
+        raise HTTPException(status_code=404, detail="Payment not found")
+    db.delete(payment)  # cascades to Reminders
+    db.commit()

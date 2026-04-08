@@ -35,6 +35,7 @@ export default function Purchases() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [typeFilter, setTypeFilter] = useState('all') // all | mango | box
+  const [deleting, setDeleting] = useState(null) // purchase id being deleted
 
   const [form, setForm] = useState(emptyPurchase)
   const [mangoItems, setMangoItems] = useState([{ ...emptyMango }])
@@ -110,6 +111,21 @@ export default function Purchases() {
     }
   }
 
+  const handleDelete = async (id, e) => {
+    e.stopPropagation()
+    if (!window.confirm('Ye purchase delete karna chahte ho?')) return
+    setDeleting(id)
+    try {
+      await purchaseAPI.delete(id)
+      toast.success('Purchase delete ho gaya')
+      setPurchases(prev => prev.filter(p => p.id !== id))
+    } catch (err) {
+      toast.error(err.response?.data?.detail || 'Delete failed')
+    } finally {
+      setDeleting(null)
+    }
+  }
+
   if (loading) return <PageLoader />
 
   return (
@@ -158,9 +174,18 @@ export default function Purchases() {
                     <p className="text-xs text-gray-500">{p.city_name} • {p.vehicle_number}</p>
                     <p className="text-xs text-gray-400 mt-0.5">{fmtDate(p.purchase_datetime)}</p>
                   </div>
-                  <span className="text-xs font-bold bg-primary-50 text-primary-700 px-2.5 py-1 rounded-full">
-                    {p.items?.length || 0} items
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold bg-primary-50 text-primary-700 px-2.5 py-1 rounded-full">
+                      {p.items?.length || 0} items
+                    </span>
+                    <button
+                      onClick={(e) => handleDelete(p.id, e)}
+                      disabled={deleting === p.id}
+                      className="text-red-400 hover:text-red-600 text-lg font-bold px-1 active:scale-90 transition-all"
+                      title="Delete">
+                      🗑
+                    </button>
+                  </div>
                 </div>
                 {p.items?.length > 0 && (
                   <div className="mt-3 pt-3 border-t border-gray-50 space-y-1">

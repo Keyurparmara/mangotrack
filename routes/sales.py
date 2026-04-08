@@ -227,3 +227,24 @@ def get_sale(
     if current_user.role == models.UserRole.employee and sale.employee_id != current_user.id:
         raise HTTPException(status_code=403, detail="Access denied")
     return _sale_to_dict(sale)
+
+
+@router.delete("/{sale_id}", status_code=204)
+def delete_sale(
+    sale_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(require_manager)
+):
+    sale = db.query(models.Sale).filter(models.Sale.id == sale_id).first()
+    if not sale:
+        raise HTTPException(status_code=404, detail="Sale not found")
+    if current_user.role == models.UserRole.manager:
+        all_ids = _manager_sale_ids(current_user.id, db)
+        if sale.employee_id not in all_ids:
+            raise HTTPException(status_code=403, detail="Access denied")
+    # Payment → Reminders cascade automatically; delete Payment manually
+    payment = db.query(models.Payment).filter(models.Payment.sale_id == sale_id).first()
+    if payment:
+        db.delete(payment)
+    db.delete(sale)
+    db.commit()
