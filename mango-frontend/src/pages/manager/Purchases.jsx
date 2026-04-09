@@ -161,7 +161,7 @@ export default function Purchases() {
           ) : (() => {
             const filtered = purchases.filter(p => {
               if (typeFilter === 'mango') return p.items?.some(i => i.item_type === 'mango')
-              if (typeFilter === 'box') return p.items?.some(i => i.item_type === 'empty_box') && !p.items?.some(i => i.item_type === 'mango')
+              if (typeFilter === 'box') return p.items?.some(i => i.item_type === 'empty_box')
               return true
             })
             if (filtered.length === 0) return <EmptyState icon="🔍" title="No purchases" subtitle={`No ${typeFilter} purchases found`} />

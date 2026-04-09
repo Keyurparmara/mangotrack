@@ -46,7 +46,7 @@ export default function AllSales() {
     const matchEmp = empFilter === 'all' || String(s.employee_id) === empFilter
     const matchType = typeFilter === 'all'
       || (typeFilter === 'mango' && s.mango_category_id)
-      || (typeFilter === 'box' && s.box_type_id && !s.mango_category_id)
+      || (typeFilter === 'box' && s.box_type_id)
     const matchSearch =
       (s.city || '').toLowerCase().includes(search.toLowerCase()) ||
       (s.vehicle_number || '').toLowerCase().includes(search.toLowerCase()) ||
